@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSaarthi - AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to SmartSaarthi</h1>
+        <p>AI-based tool to generate notes and resumes</p>
+    </header>
+    <main>
+        <section>
+            <h2>Generate Notes</h2>
+            <form id="notesForm">
+                <input type="text" id="noteTopic" placeholder="Enter topic (e.g. Photosynthesis)">
+                <button type="button" onclick="generateNotes()">Generate</button>
+            </form>
+            <div id="notesOutput"></div>
+        </section>
+        <section>
+            <h2>Build Resume</h2>
+            <form id="resumeForm">
+                <input type="text" placeholder="Your Name"><br>
+                <input type="text" placeholder="Email"><br>
+                <textarea placeholder="Write your summary here..."></textarea><br>
+                <button type="button">Download Resume</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+                  </html>
