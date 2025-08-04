@@ -1,11 +1,20 @@
 function generateNotes() {
-    const topic = document.getElementById("noteTopic").value;
+    const topic = document.getElementById("noteTopic").value.trim();
     const output = document.getElementById("notesOutput");
 
-    if (topic.trim() === "") {
-        output.innerHTML = "<p>Please enter a topic to generate notes.</p>";
+    if (topic === "") {
+        output.innerHTML = "<p>Please enter a topic.</p>";
         return;
     }
 
-    output.innerHTML = `<p><strong>${topic}</strong>: This is a dummy AI-generated note for the topic "${topic}". (Replace this with real AI output later)</p>`;
+    // Static AI-style Notes Generator
+    let notes = `Notes on <b>${topic}</b>:<br><br>`;
+
+    notes += `1. Introduction to ${topic}.<br>`;
+    notes += `2. Key concepts related to ${topic}.<br>`;
+    notes += `3. Importance of ${topic} in real life.<br>`;
+    notes += `4. Applications and examples of ${topic}.<br>`;
+    notes += `5. Summary and conclusion about ${topic}.<br>`;
+
+    output.innerHTML = notes;
 }
