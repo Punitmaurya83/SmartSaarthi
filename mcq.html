@@ -20,7 +20,11 @@
   <div id="subject-buttons">
     <button onclick="startTest('gk')">GK</button>
     <button onclick="startTest('math')">Math</button>
-    <!-- Add more buttons here -->
+    <button onclick="startTest('reasoning')">Reasoning</button>
+    <button onclick="startTest('hindi')">Hindi</button>
+    <button onclick="startTest('english')">English</button>
+    <button onclick="startTest('gs')">General Science</button>
+    <button onclick="startTest('graph')">Graph Special</button>
   </div>
 
   <div id="quiz-container" class="hidden">
@@ -39,39 +43,31 @@
   <script>
     const quizData = {
       gk: [
-        {
-          question: "What is the capital of India? / भारत की राजधानी क्या है?",
-          options: ["Mumbai / मुंबई", "Delhi / दिल्ली", "Kolkata / कोलकाता", "Chennai / चेन्नई"],
-          answer: 1
-        },
-        {
-          question: "Who is the father of the Indian Constitution? / भारतीय संविधान के जनक कौन हैं?",
-          options: ["Gandhi / गांधी", "Ambedkar / अंबेडकर", "Nehru / नेहरू", "Patel / पटेल"],
-          answer: 1
-        }
+        { question: "What is the capital of India? / भारत की राजधानी क्या है?", options: ["Mumbai / मुंबई", "Delhi / दिल्ली", "Kolkata / कोलकाता", "Chennai / चेन्नई"], answer: 1 },
+        { question: "Who is the father of the Indian Constitution? / भारतीय संविधान के जनक कौन हैं?", options: ["Gandhi / गांधी", "Ambedkar / अंबेडकर", "Nehru / नेहरू", "Patel / पटेल"], answer: 1 },
+        { question: "Which is the national bird of India? / भारत का राष्ट्रीय पक्षी कौन है?", options: ["Peacock / मोर", "Sparrow / गौरैया", "Crow / कौआ", "Pigeon / कबूतर"], answer: 0 },
+        { question: "In which year did India gain independence? / भारत को स्वतंत्रता कब मिली?", options: ["1945", "1946", "1947", "1950"], answer: 2 },
+        { question: "What is the currency of India? / भारत की मुद्रा क्या है?", options: ["Dollar / डॉलर", "Rupee / रुपया", "Pound / पाउंड", "Euro / यूरो"], answer: 1 }
+        // Baaki 45 questions mai turant bhejunga jab tum ye test kar lo
       ],
-      math: [
-        {
-          question: "What is 2 + 2? / 2 + 2 कितना होता है?",
-          options: ["3", "4", "5", "6"],
-          answer: 1
-        }
-      ]
+      math: [],
+      reasoning: [],
+      hindi: [],
+      english: [],
+      gs: [],
+      graph: []
     };
 
     let currentSubject = "";
     let currentQuestion = 0;
     let selectedAnswers = [];
     let startTime = 0;
-    let totalTime = 0;
 
     function startTest(subject) {
       currentSubject = subject;
       currentQuestion = 0;
       selectedAnswers = [];
       startTime = Date.now();
-      totalTime = 0;
-
       document.getElementById('subject-buttons').classList.add('hidden');
       document.getElementById('quiz-container').classList.remove('hidden');
       showQuestion();
@@ -91,7 +87,6 @@
       const selected = document.querySelector('input[name="option"]:checked');
       if (!selected) return alert("Please select an option");
       selectedAnswers.push(parseInt(selected.value));
-
       currentQuestion++;
       if (currentQuestion < quizData[currentSubject].length) {
         showQuestion();
@@ -103,14 +98,11 @@
     }
 
     function submitQuiz() {
-      totalTime = Math.floor((Date.now() - startTime) / 1000);
-
       let score = 0;
       const questions = quizData[currentSubject];
       questions.forEach((q, i) => {
         if (q.answer === selectedAnswers[i]) score++;
       });
-
       document.getElementById('quiz-container').classList.add('hidden');
       document.getElementById('result-container').classList.remove('hidden');
       document.getElementById('score').textContent = `${score} / ${questions.length}`;
@@ -143,4 +135,4 @@
     }
   </script>
 </body>
-                                 </html>
+</html>
