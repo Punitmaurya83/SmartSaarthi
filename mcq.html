@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartSaarthi MCQ Practice</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .question-box { margin-bottom: 20px; }
+    .hidden { display: none; }
+    .option { margin: 8px 0; }
+    .red { color: red; }
+    .green { color: green; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Practice Government Exams MCQ</h1>
+
+  <div id="subject-buttons">
+    <button onclick="startTest('gk')">GK</button>
+    <button onclick="startTest('math')">Math</button>
+    <!-- Add more buttons here -->
+  </div>
+
+  <div id="quiz-container" class="hidden">
+    <div id="timer">Time: 0 sec</div>
+    <div id="question-box" class="question-box"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <button onclick="submitQuiz()" class="hidden">Submit</button>
+  </div>
+
+  <div id="result-container" class="hidden">
+    <h2>Your Score: <span id="score"></span></h2>
+    <button onclick="viewErrors()">View Errors</button>
+    <div id="error-details" class="hidden"></div>
+  </div>
+
+  <script>
+    const quizData = {
+      gk: [
+        {
+          question: "What is the capital of India? / भारत की राजधानी क्या है?",
+          options: ["Mumbai / मुंबई", "Delhi / दिल्ली", "Kolkata / कोलकाता", "Chennai / चेन्नई"],
+          answer: 1
+        },
+        {
+          question: "Who is the father of the Indian Constitution? / भारतीय संविधान के जनक कौन हैं?",
+          options: ["Gandhi / गांधी", "Ambedkar / अंबेडकर", "Nehru / नेहरू", "Patel / पटेल"],
+          answer: 1
+        }
+      ],
+      math: [
+        {
+          question: "What is 2 + 2? / 2 + 2 कितना होता है?",
+          options: ["3", "4", "5", "6"],
+          answer: 1
+        }
+      ]
+    };
+
+    let currentSubject = "";
+    let currentQuestion = 0;
+    let selectedAnswers = [];
+    let startTime = 0;
+    let totalTime = 0;
+
+    function startTest(subject) {
+      currentSubject = subject;
+      currentQuestion = 0;
+      selectedAnswers = [];
+      startTime = Date.now();
+      totalTime = 0;
+
+      document.getElementById('subject-buttons').classList.add('hidden');
+      document.getElementById('quiz-container').classList.remove('hidden');
+      showQuestion();
+      startTimer();
+    }
+
+    function showQuestion() {
+      const q = quizData[currentSubject][currentQuestion];
+      const box = document.getElementById('question-box');
+      box.innerHTML = `<p><strong>Q${currentQuestion + 1}:</strong> ${q.question}</p>`;
+      q.options.forEach((opt, i) => {
+        box.innerHTML += `<div class="option"><input type='radio' name='option' value='${i}' /> ${opt}</div>`;
+      });
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) return alert("Please select an option");
+      selectedAnswers.push(parseInt(selected.value));
+
+      currentQuestion++;
+      if (currentQuestion < quizData[currentSubject].length) {
+        showQuestion();
+        if (currentQuestion === quizData[currentSubject].length - 1) {
+          document.querySelector("button[onclick='nextQuestion()']").classList.add("hidden");
+          document.querySelector("button[onclick='submitQuiz()']").classList.remove("hidden");
+        }
+      }
+    }
+
+    function submitQuiz() {
+      totalTime = Math.floor((Date.now() - startTime) / 1000);
+
+      let score = 0;
+      const questions = quizData[currentSubject];
+      questions.forEach((q, i) => {
+        if (q.answer === selectedAnswers[i]) score++;
+      });
+
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('result-container').classList.remove('hidden');
+      document.getElementById('score').textContent = `${score} / ${questions.length}`;
+    }
+
+    function viewErrors() {
+      const questions = quizData[currentSubject];
+      const errorDiv = document.getElementById('error-details');
+      errorDiv.innerHTML = '';
+      questions.forEach((q, i) => {
+        if (q.answer !== selectedAnswers[i]) {
+          const userAnswer = q.options[selectedAnswers[i]] || 'Not Answered';
+          const correctAnswer = q.options[q.answer];
+          errorDiv.innerHTML += `
+            <p><strong>Q${i + 1}:</strong> ${q.question}</p>
+            <p><span class="red">Your Answer: ${userAnswer}</span></p>
+            <p><span class="green">Correct Answer: ${correctAnswer}</span></p><hr />
+          `;
+        }
+      });
+      errorDiv.classList.remove('hidden');
+    }
+
+    function startTimer() {
+      const timerDisplay = document.getElementById('timer');
+      setInterval(() => {
+        let seconds = Math.floor((Date.now() - startTime) / 1000);
+        timerDisplay.textContent = `Time: ${seconds} sec`;
+      }, 1000);
+    }
+  </script>
+</body>
+                                 </html>
