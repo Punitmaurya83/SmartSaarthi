@@ -6,8 +6,8 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9fa;
   color: #2d3436;
   line-height: 1.6;
 }
@@ -15,7 +15,7 @@ body {
 /* Hero Section */
 .hero-section {
   background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-              url('https://images.unsplash.com/photo-1606326608608-e6f5f574a2c0?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+              url('https://images.unsplash.com/photo-1606326606808-e6f5f574a2c0?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
   color: white;
   text-align: center;
   padding: 100px 20px;
@@ -32,7 +32,7 @@ body {
 }
 
 .btn {
-  background-color: #00b894;
+  background-color: #00B894;
   color: white;
   padding: 12px 25px;
   text-decoration: none;
@@ -84,16 +84,11 @@ body {
   color: #0984e3;
 }
 
-.card p {
-  color: #636e72;
-  margin-bottom: 20px;
-}
-
 /* Footer */
 footer {
-  background-color: #2d3436;
-  color: white;
+  background-color: #222;
+  color: #ccc;
   text-align: center;
-  padding: 20px 0;
-  margin-top: 40px;
-    }
+  padding: 20px;
+  font-size: 0.9em;
+  }
