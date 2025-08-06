@@ -1,56 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSaarthi - AI Assistant</title>
-    <!-- SEO Meta Tags -->
-<meta name="title" content="SmartSaarthi - AI Notes & Resume Generator">
-<meta name="description" content="SmartSaarthi is your AI-powered assistant for creating resumes and generating study notes easily. Just type your topic or goal and get instant content.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartSaarthi - Punit's Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #fff;
+    }
 
-<!-- Keywords for Search -->
-<meta name="keywords" content="SmartSaarthi, AI Notes Generator, Resume Maker, Study Tool, Punit Maurya, Smart Saarthi, github.io">
+    header {
+      background: url('https://images.unsplash.com/photo-1606326608608-e6f5f574a2c0?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
 
-<!-- Author -->
-<meta name="author" content="Punit Maurya">
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
 
-<!-- Open Graph for Sharing -->
-<meta property="og:title" content="SmartSaarthi - Your AI Study & Career Partner">
-<meta property="og:description" content="Use SmartSaarthi to generate AI-powered notes and resumes instantly.">
-<meta property="og:url" content="https://punitmaurya83.github.io/SmartSaarthi/">
-<meta property="og:type" content="website">
-    <link rel="stylesheet" href="style.css">
+    header p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #00c6a9;
+      color: white;
+      padding: 12px 28px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #00a58a;
+    }
+
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      margin-bottom: 40px;
+      font-size: 2em;
+      color: #333;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .feature-box {
+      padding: 25px;
+      background: #f8f8f8;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-box h3 {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #222;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to SmartSaarthi</h1>
-        <p>AI-based tool to generate notes and resumes</p>
-    </header>
-    <main>
-        <section>
-            <h2>Generate Notes</h2>
-            <form id="notesForm">
-                <input type="text" id="noteTopic" placeholder="Enter topic (e.g. Photosynthesis)">
-                <button type="button" onclick="generateNotes()">Generate</button>
-            </form>
-            <div id="notesOutput"></div>
-        </section>
-        <section>
-            <h2>Build Resume</h2>
-            <form id="resumeForm">
-                <input type="text" placeholder="Your Name"><br>
-                <input type="text" placeholder="Email"><br>
-                <textarea placeholder="Write your summary here..."></textarea><br>
-                <button type="button">Download Resume</button>
-            </form>
-        </section>
-    </main>
-    <script src="script.js"></script>
+
+  <header>
+    <h1>SmartSaarthi - Punit's Academy</h1>
+    <p>Your AI-powered platform for Notes, Resume, and Exam Practice</p>
+    <a href="#tools" class="btn-primary">Get Started</a>
+  </header>
+
+  <section class="section" id="tools">
+    <h2>Smart Tools</h2>
+    <div class="features">
+      <div class="feature-box">
+        <h3>📝 AI Notes Generator</h3>
+        <p>Create detailed notes by just entering your topic.</p>
+      </div>
+      <div class="feature-box">
+        <h3>📄 Resume Builder</h3>
+        <p>Generate beautiful resumes instantly in selected templates.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🧠 MCQ Practice Test</h3>
+        <p>Practice subject-wise government exam questions in Hindi & English.</p>
+      </div>
+      <div class="feature-box">
+        <h3>📊 Performance Report</h3>
+        <p>See your time spent per question and learn from your mistakes.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 SmartSaarthi | Built by Punit Maurya</p>
+  </footer>
+
 </body>
-                  </html>
-<section>
-  <h2>Practice Government Exams MCQ</h2>
-  <a href="mcq.html">
-    <button>Start Practice</button>
-  </a>
-    </section>
+        </html>
