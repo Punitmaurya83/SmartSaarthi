@@ -3,38 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resume Form - SmartSaarthi</title>
+  <title>Fill Your Resume Details</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 30px;
+      font-family: Arial;
+      padding: 40px;
+      background-color: #f2f2f2;
     }
     .container {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
       background: white;
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
-    }
-    h2 {
-      text-align: center;
     }
     input, textarea {
       width: 100%;
-      padding: 10px;
       margin: 10px 0;
+      padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
     button {
-      width: 100%;
-      padding: 10px;
-      background: #007bff;
+      background-color: #28a745;
       color: white;
+      padding: 12px 20px;
       border: none;
       border-radius: 5px;
-      font-weight: bold;
       cursor: pointer;
     }
   </style>
@@ -44,41 +40,39 @@
     <h2>Fill Resume Details</h2>
     <form id="resumeForm">
       <input type="text" id="name" placeholder="Full Name" required />
-      <input type="text" id="address" placeholder="Full Address" required />
+      <input type="text" id="address" placeholder="Address" required />
       <input type="text" id="phone" placeholder="Phone Number" required />
       <input type="text" id="email" placeholder="Email" />
       <input type="text" id="dob" placeholder="Date of Birth" />
-      <textarea id="summary" placeholder="Career Objective"></textarea>
       <input type="text" id="education" placeholder="Education" />
+      <textarea id="summary" placeholder="Career Objective / Summary"></textarea>
       <input type="text" id="skills" placeholder="Skills (comma separated)" />
       <textarea id="experience" placeholder="Experience / Projects"></textarea>
       <textarea id="achievements" placeholder="Achievements"></textarea>
       <input type="text" id="languages" placeholder="Languages Known" />
-      <textarea id="declaration">I hereby declare that all the information provided is true to the best of my knowledge.</textarea>
-      <button type="submit">Submit & Generate Resume</button>
+      <textarea id="declaration" placeholder="Declaration">I hereby declare that the information provided is true.</textarea>
+      <button type="submit">Submit & Preview</button>
     </form>
   </div>
 
   <script>
-    const form = document.getElementById('resumeForm');
-
-    form.addEventListener('submit', function (e) {
+    document.getElementById("resumeForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const data = {
-        name: document.getElementById('name').value,
-        address: document.getElementById('address').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        dob: document.getElementById('dob').value,
-        summary: document.getElementById('summary').value,
-        education: document.getElementById('education').value,
-        skills: document.getElementById('skills').value,
-        experience: document.getElementById('experience').value,
-        achievements: document.getElementById('achievements').value,
-        languages: document.getElementById('languages').value,
-        declaration: document.getElementById('declaration').value,
-        template: localStorage.getItem("selectedTemplate") || "1"
+        template: localStorage.getItem("selectedTemplate"),
+        name: document.getElementById("name").value,
+        address: document.getElementById("address").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        dob: document.getElementById("dob").value,
+        education: document.getElementById("education").value,
+        summary: document.getElementById("summary").value,
+        skills: document.getElementById("skills").value,
+        experience: document.getElementById("experience").value,
+        achievements: document.getElementById("achievements").value,
+        languages: document.getElementById("languages").value,
+        declaration: document.getElementById("declaration").value
       };
 
       localStorage.setItem("resumeData", JSON.stringify(data));
@@ -86,4 +80,4 @@
     });
   </script>
 </body>
-  </html>
+        </html>
