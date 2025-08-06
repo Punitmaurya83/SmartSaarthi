@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Resume Template - SmartSaarthi</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .templates {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .template {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 220px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .template img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .template button {
+      margin-top: 10px;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Select Your Resume Template</h2>
+  <div class="templates">
+    <div class="template">
+      <img src="images/template1.png" alt="Template 1">
+      <button onclick="selectTemplate('template1')">Select</button>
+    </div>
+    <div class="template">
+      <img src="images/template2.png" alt="Template 2">
+      <button onclick="selectTemplate('template2')">Select</button>
+    </div>
+    <div class="template">
+      <img src="images/template3.png" alt="Template 3">
+      <button onclick="selectTemplate('template3')">Select</button>
+    </div>
+    <div class="template">
+      <img src="images/template4.png" alt="Template 4">
+      <button onclick="selectTemplate('template4')">Select</button>
+    </div>
+  </div>
+
+  <script>
+    function selectTemplate(templateId) {
+      localStorage.setItem('selectedTemplate', templateId);
+      window.location.href = 'form.html';
+    }
+  </script>
+</body>
+  </html>
