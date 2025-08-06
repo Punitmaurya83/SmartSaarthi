@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Resume</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px; }
+    .resume-container { background: white; padding: 30px; border-radius: 10px; max-width: 800px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #007bff; }
+    .section { margin-top: 20px; }
+    .download-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume-container" id="resume">
+    <h2 id="name"></h2>
+    <p><strong>Address:</strong> <span id="address"></span></p>
+    <p><strong>Phone:</strong> <span id="phone"></span> | <strong>Email:</strong> <span id="email"></span></p><div class="section">
+  <h3>Career Objective</h3>
+  <p id="summary"></p>
+</div>
+
+<div class="section">
+  <h3>Education</h3>
+  <p id="education"></p>
+</div>
+
+<div class="section">
+  <h3>Skills</h3>
+  <p id="skills"></p>
+</div>
+
+<div class="section">
+  <h3>Experience</h3>
+  <p id="experience"></p>
+</div>
+
+  </div><button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem('resumeData'));
+    if (data) {
+      document.getElementById('name').textContent = data.name || '';
+      document.getElementById('address').textContent = data.address || '';
+      document.getElementById('phone').textContent = data.phone || '';
+      document.getElementById('email').textContent = data.email || '';
+      document.getElementById('summary').textContent = data.summary || '';
+      document.getElementById('education').textContent = data.education || '';
+      document.getElementById('skills').textContent = data.skills || '';
+      document.getElementById('experience').textContent = data.experience || '';
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.html(document.getElementById('resume'), {
+        callback: function (doc) {
+          doc.save("my_resume.pdf");
+        },
+        x: 10,
+        y: 10
+      });
+    }
+  </script></body>
+      </html>
