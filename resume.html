@@ -1,75 +1,73 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Resume</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Resume - SmartSaarthi</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px; }
-    .resume-container { background: white; padding: 30px; border-radius: 10px; max-width: 800px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h2 { color: #007bff; }
-    .section { margin-top: 20px; }
-    .download-btn {
-      display: inline-block;
-      margin-top: 20px;
-      background-color: green;
-      color: white;
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f0f0f0;
+    }
+    .resume {
+      background: white;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      color: #007bff;
+    }
+    #downloadBtn {
+      display: block;
+      margin: 20px auto;
       padding: 10px 20px;
+      background: green;
+      color: white;
+      border: none;
       border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
-      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="resume-container" id="resume">
-    <h2 id="name"></h2>
-    <p><strong>Address:</strong> <span id="address"></span></p>
-    <p><strong>Phone:</strong> <span id="phone"></span> | <strong>Email:</strong> <span id="email"></span></p><div class="section">
-  <h3>Career Objective</h3>
-  <p id="summary"></p>
-</div>
+  <div class="resume" id="resumeDisplay"></div>
+  <button id="downloadBtn">Download PDF</button>
 
-<div class="section">
-  <h3>Education</h3>
-  <p id="education"></p>
-</div>
-
-<div class="section">
-  <h3>Skills</h3>
-  <p id="skills"></p>
-</div>
-
-<div class="section">
-  <h3>Experience</h3>
-  <p id="experience"></p>
-</div>
-
-  </div><button class="download-btn" onclick="downloadPDF()">Download PDF</button>
-
+  <!-- PDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
   <script>
-    const data = JSON.parse(localStorage.getItem('resumeData'));
-    if (data) {
-      document.getElementById('name').textContent = data.name || '';
-      document.getElementById('address').textContent = data.address || '';
-      document.getElementById('phone').textContent = data.phone || '';
-      document.getElementById('email').textContent = data.email || '';
-      document.getElementById('summary').textContent = data.summary || '';
-      document.getElementById('education').textContent = data.education || '';
-      document.getElementById('skills').textContent = data.skills || '';
-      document.getElementById('experience').textContent = data.experience || '';
-    }
+    const data = JSON.parse(localStorage.getItem("resumeData")) || {};
+    const resume = document.getElementById("resumeDisplay");
 
-    function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.html(document.getElementById('resume'), {
-        callback: function (doc) {
-          doc.save("my_resume.pdf");
-        },
-        x: 10,
-        y: 10
-      });
-    }
-  </script></body>
-      </html>
+    resume.innerHTML = `
+      <h2>${data.name || "Your Name"}</h2>
+      <p><strong>Address:</strong> ${data.address}</p>
+      <p><strong>Phone:</strong> ${data.phone} | <strong>Email:</strong> ${data.email}</p>
+      <div class="section"><h3>Career Objective</h3><p>${data.summary}</p></div>
+      <div class="section"><h3>Education</h3><p>${data.education}</p></div>
+      <div class="section"><h3>Skills</h3><p>${data.skills}</p></div>
+      <div class="section"><h3>Experience</h3><p>${data.experience}</p></div>
+      <div class="section"><h3>Achievements</h3><p>${data.achievements}</p></div>
+      <div class="section"><h3>Languages</h3><p>${data.languages}</p></div>
+      <div class="section"><h3>Declaration</h3><p>${data.declaration}</p></div>
+    `;
+
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      html2pdf().from(resume).save(`${data.name || "Resume"}.pdf`);
+    });
+  </script>
+</body>
+  </html>
