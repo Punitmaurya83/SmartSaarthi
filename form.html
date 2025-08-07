@@ -1,83 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fill Your Resume Details</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Fill Resume Details</title>
   <style>
-    body {
-      font-family: Arial;
-      padding: 40px;
-      background-color: #f2f2f2;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-    }
-    input, textarea {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #28a745;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    form { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: green; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Fill Resume Details</h2>
-    <form id="resumeForm">
-      <input type="text" id="name" placeholder="Full Name" required />
-      <input type="text" id="address" placeholder="Address" required />
-      <input type="text" id="phone" placeholder="Phone Number" required />
-      <input type="text" id="email" placeholder="Email" />
-      <input type="text" id="dob" placeholder="Date of Birth" />
-      <input type="text" id="education" placeholder="Education" />
-      <textarea id="summary" placeholder="Career Objective / Summary"></textarea>
-      <input type="text" id="skills" placeholder="Skills (comma separated)" />
-      <textarea id="experience" placeholder="Experience / Projects"></textarea>
-      <textarea id="achievements" placeholder="Achievements"></textarea>
-      <input type="text" id="languages" placeholder="Languages Known" />
-      <textarea id="declaration" placeholder="Declaration">I hereby declare that the information provided is true.</textarea>
-      <button type="submit">Submit & Preview</button>
-    </form>
-  </div>
-
+  <h2 style="text-align:center;">Fill Resume Details</h2>
+  <form id="resumeForm">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="text" name="dob" placeholder="Date of Birth" />
+    <input type="text" name="address" placeholder="Address" required />
+    <input type="text" name="phone" placeholder="Phone Number" required />
+    <input type="email" name="email" placeholder="Email" />
+    <textarea name="summary" placeholder="Career Objective / Summary"></textarea>
+    <input type="text" name="education" placeholder="Education" />
+    <input type="text" name="skills" placeholder="Skills (comma separated)" />
+    <textarea name="experience" placeholder="Experience / Projects"></textarea>
+    <textarea name="achievements" placeholder="Achievements"></textarea>
+    <input type="text" name="languages" placeholder="Languages Known" />
+    <textarea name="declaration" placeholder="Declaration">I hereby declare that all the information is true.</textarea>
+    <button type="submit">Submit</button>
+  </form>
   <script>
-    document.getElementById("resumeForm").addEventListener("submit", function(e) {
+    document.getElementById('resumeForm').addEventListener('submit', function(e){
       e.preventDefault();
-
-      const data = {
-        template: localStorage.getItem("selectedTemplate"),
-        name: document.getElementById("name").value,
-        address: document.getElementById("address").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
-        dob: document.getElementById("dob").value,
-        education: document.getElementById("education").value,
-        summary: document.getElementById("summary").value,
-        skills: document.getElementById("skills").value,
-        experience: document.getElementById("experience").value,
-        achievements: document.getElementById("achievements").value,
-        languages: document.getElementById("languages").value,
-        declaration: document.getElementById("declaration").value
-      };
-
-      localStorage.setItem("resumeData", JSON.stringify(data));
-      window.location.href = "resume.html";
+      const params = new URLSearchParams(new FormData(this));
+      const tpl = new URLSearchParams(window.location.search).get('template');
+      if (tpl) params.append('template', tpl);
+      window.location.href = 'resume.html?' + params.toString();
     });
   </script>
 </body>
-        </html>
+</html>
