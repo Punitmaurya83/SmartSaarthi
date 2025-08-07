@@ -6,40 +6,38 @@
   <title>Select Resume Template</title>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
+      padding: 20px;
       text-align: center;
-      background-color: #f4f4f4;
     }
     .templates {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 20px;
-    }
-    .temp {
-      margin: 10px;
-      border: 2px solid transparent;
-      cursor: pointer;
-    }
-    .temp:hover {
-      border-color: #007bff;
+      gap: 20px;
     }
     .temp img {
       width: 200px;
       height: auto;
-      border-radius: 5px;
+      border: 3px solid transparent;
+      border-radius: 10px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .temp img:hover {
+      border-color: #007bff;
     }
   </style>
 </head>
 <body>
   <h1>Select Resume Template</h1>
   <div class="templates">
-    <div class="temp" onclick="selectTpl('template1.jpg')"><img src="template1.jpg" alt="Template 1"></div>
-    <div class="temp" onclick="selectTpl('template2.jpg')"><img src="template2.jpg" alt="Template 2"></div>
-    <div class="temp" onclick="selectTpl('template3.jpg')"><img src="template3.jpg" alt="Template 3"></div>
-    <div class="temp" onclick="selectTpl('template4.jpg')"><img src="template4.jpg" alt="Template 4"></div>
-    <div class="temp" onclick="selectTpl('template5.jpg')"><img src="template5.jpg" alt="Template 5"></div>
-    <div class="temp" onclick="selectTpl('template6.jpg')"><img src="template6.jpg" alt="Template 6"></div>
+    <div class="temp"><img src="template1.jpg" onclick="selectTpl('template1.jpg')" alt="Template 1"></div>
+    <div class="temp"><img src="template2.jpg" onclick="selectTpl('template2.jpg')" alt="Template 2"></div>
+    <div class="temp"><img src="template3.jpg" onclick="selectTpl('template3.jpg')" alt="Template 3"></div>
+    <div class="temp"><img src="template4.jpg" onclick="selectTpl('template4.jpg')" alt="Template 4"></div>
+    <div class="temp"><img src="template5.jpg" onclick="selectTpl('template5.jpg')" alt="Template 5"></div>
+    <div class="temp"><img src="template6.jpg" onclick="selectTpl('template6.jpg')" alt="Template 6"></div>
   </div>
 
   <script>
@@ -49,4 +47,4 @@
     }
   </script>
 </body>
-    </html>
+</html>
