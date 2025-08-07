@@ -1,14 +1,54 @@
-<!-- resume.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Your Resume</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Resume</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <style> body{font-family: Arial; padding:30px; background:#f0f0f0;} .wrap{max-width:800px;margin:auto;background:white;padding:20px;border-radius:10px;} img{max-width:300px; margin:auto; display:block;} h2{ text-align:center;} .section{ margin-bottom:20px;} .section h3{ color:#007bff; border-bottom:1px solid #ccc; padding-bottom:5px;} #dl{ background:green; color:white; padding:10px 20px; border:none; border-radius:5px; display:block; margin:20px auto; cursor:pointer;} </style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f0f0f0;
+    }
+    .wrap {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    img {
+      max-width: 300px;
+      margin: auto;
+      display: block;
+    }
+    h2 {
+      text-align: center;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h3 {
+      color: #007bff;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    #dl {
+      background: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      display: block;
+      margin: 20px auto;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <div class="wrap" id="resumeWrap">
-    <img id="tplImg" src="">
+    <img id="tplImg" src="" alt="Selected Template"/>
     <h2 id="name"></h2>
     <p id="address"></p>
     <p id="phone"></p>
@@ -23,12 +63,29 @@
     <div class="section"><h3>Declaration</h3><p id="declaration"></p></div>
   </div>
   <button id="dl">Download PDF</button>
+
   <script>
     const d = JSON.parse(localStorage.getItem('resumeInfo') || '{}');
-    if (d.template) document.getElementById('tplImg').src = d.template;
-    ['name','address','phone','email','dob','summary','education','skills','experience','achievements','languages','declaration']
-      .forEach(k => document.getElementById(k).textContent = d[k] || '');
-    document.getElementById('dl').onclick = () => html2pdf().from(document.getElementById('resumeWrap')).save(d.name+'-resume.pdf');
+    const keys = [
+      'name', 'address', 'phone', 'email', 'dob', 'summary',
+      'education', 'skills', 'experience', 'achievements',
+      'languages', 'declaration'
+    ];
+    keys.forEach(k => {
+      if (d[k]) {
+        document.getElementById(k).textContent = d[k];
+      }
+    });
+
+    if (d.template) {
+      document.getElementById('tplImg').src = d.template;
+    } else {
+      document.getElementById('tplImg').style.display = 'none';
+    }
+
+    document.getElementById('dl').onclick = () => {
+      html2pdf().from(document.getElementById('resumeWrap')).save(`${d.name || 'resume'}.pdf`);
+    };
   </script>
 </body>
-</html>
+                           </html>
