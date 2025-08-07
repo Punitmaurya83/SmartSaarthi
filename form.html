@@ -1,38 +1,35 @@
+<!-- form.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Fill Resume Details</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
-    form { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
-    input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-    button { background: green; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; }
-  </style>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Fill Resume Details</title>
+  <style> body {font-family: Arial; padding:20px;} form {max-width:600px; margin:auto;} input, textarea {width:100%; padding:10px; margin:10px 0;} button{padding:10px 20px; background:green; color:white; border:none; cursor:pointer;} </style>
 </head>
 <body>
-  <h2 style="text-align:center;">Fill Resume Details</h2>
-  <form id="resumeForm">
-    <input type="text" name="name" placeholder="Full Name" required />
-    <input type="text" name="dob" placeholder="Date of Birth" />
-    <input type="text" name="address" placeholder="Address" required />
-    <input type="text" name="phone" placeholder="Phone Number" required />
-    <input type="email" name="email" placeholder="Email" />
-    <textarea name="summary" placeholder="Career Objective / Summary"></textarea>
-    <input type="text" name="education" placeholder="Education" />
-    <input type="text" name="skills" placeholder="Skills (comma separated)" />
-    <textarea name="experience" placeholder="Experience / Projects"></textarea>
+  <h2 style="text-align:center;">Enter Resume Details</h2>
+  <form id="resForm">
+    <input name="name" placeholder="Full Name" required>
+    <input name="address" placeholder="Address" required>
+    <input name="phone" placeholder="Phone Number" required>
+    <input name="email" placeholder="Email">
+    <input name="dob" placeholder="Date of Birth">
+    <textarea name="summary" placeholder="Career Objective"></textarea>
+    <input name="education" placeholder="Education">
+    <input name="skills" placeholder="Skills (comma separated)">
+    <textarea name="experience" placeholder="Experience/Projects"></textarea>
     <textarea name="achievements" placeholder="Achievements"></textarea>
-    <input type="text" name="languages" placeholder="Languages Known" />
-    <textarea name="declaration" placeholder="Declaration">I hereby declare that all the information is true.</textarea>
+    <input name="languages" placeholder="Languages">
+    <textarea name="declaration">I hereby declare the information given is true.</textarea>
     <button type="submit">Submit</button>
   </form>
   <script>
-    document.getElementById('resumeForm').addEventListener('submit', function(e){
+    document.getElementById('resForm').addEventListener('submit', e => {
       e.preventDefault();
-      const params = new URLSearchParams(new FormData(this));
-      const tpl = new URLSearchParams(window.location.search).get('template');
-      if (tpl) params.append('template', tpl);
-      window.location.href = 'resume.html?' + params.toString();
+      const data = {};
+      new FormData(e.target).forEach((v, k) => data[k] = v);
+      data.template = localStorage.getItem('selectedTpl');
+      localStorage.setItem('resumeInfo', JSON.stringify(data));
+      window.location.href = 'resume.html';
     });
   </script>
 </body>
