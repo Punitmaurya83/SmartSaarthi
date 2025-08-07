@@ -1,95 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Resume</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 40px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-    }
-    .resume {
-      padding: 20px;
-    }
-    .template-img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    #downloadBtn {
-      background: #007bff;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+    body { font-family: Arial, sans-serif; padding: 40px; background: #f0f0f0; }
+    .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 10px; }
+    #templateImg { max-width: 300px; display: block; margin: 20px auto; }
+    h2 { text-align: center; }
+    .section { margin-bottom: 20px; }
+    .section h3 { color: #007bff; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+    #downloadBtn { display: block; margin: 20px auto; padding: 12px 20px; background: green; color: white; border: none; border-radius: 5px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="resumeContent" class="resume">
-      <img id="templateImage" class="template-img" src="" alt="Selected Template" />
-      <h2 id="name"></h2>
-      <p><strong>Address:</strong> <span id="address"></span></p>
-      <p><strong>Phone:</strong> <span id="phone"></span> | <strong>Email:</strong> <span id="email"></span></p>
-      <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
-      <h3>Career Objective</h3>
-      <p id="summary"></p>
-      <h3>Education</h3>
-      <p id="education"></p>
-      <h3>Skills</h3>
-      <p id="skills"></p>
-      <h3>Experience</h3>
-      <p id="experience"></p>
-      <h3>Achievements</h3>
-      <p id="achievements"></p>
-      <h3>Languages Known</h3>
-      <p id="languages"></p>
-      <h3>Declaration</h3>
-      <p id="declaration"></p>
-    </div>
-
+  <div class="container" id="resume">
+    <img id="templateImg" src="" alt="Template">
+    <h2 id="name"></h2>
+    <p><strong>DOB:</strong> <span id="dob"></span></p>
+    <p><strong>Address:</strong> <span id="address"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span> | <strong>Phone:</strong> <span id="phone"></span></p>
+    <div class="section"><h3>Career Objective</h3><p id="summary"></p></div>
+    <div class="section"><h3>Education</h3><p id="education"></p></div>
+    <div class="section"><h3>Skills</h3><p id="skills"></p></div>
+    <div class="section"><h3>Experience</h3><p id="experience"></p></div>
+    <div class="section"><h3>Achievements</h3><p id="achievements"></p></div>
+    <div class="section"><h3>Languages Known</h3><p id="languages"></p></div>
+    <div class="section"><h3>Declaration</h3><p id="declaration"></p></div>
     <button id="downloadBtn">Download PDF</button>
   </div>
-
   <script>
-    const data = JSON.parse(localStorage.getItem("resumeData"));
-    if (data) {
-      document.getElementById("name").textContent = data.name;
-      document.getElementById("address").textContent = data.address;
-      document.getElementById("phone").textContent = data.phone;
-      document.getElementById("email").textContent = data.email;
-      document.getElementById("dob").textContent = data.dob;
-      document.getElementById("summary").textContent = data.summary;
-      document.getElementById("education").textContent = data.education;
-      document.getElementById("skills").textContent = data.skills;
-      document.getElementById("experience").textContent = data.experience;
-      document.getElementById("achievements").textContent = data.achievements;
-      document.getElementById("languages").textContent = data.languages;
-      document.getElementById("declaration").textContent = data.declaration;
-
-      const imgName = data.template ? `${data.template}.jpg` : '';
-      document.getElementById("templateImage").src = imgName;
-    }
-
-    document.getElementById("downloadBtn").addEventListener("click", () => {
-      const element = document.getElementById("resumeContent");
-      html2pdf().from(element).save("SmartSaarthi_Resume.pdf");
-    });
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('templateImg').src = params.get('template') || '';
+    ['name','dob','address','phone','email','summary','education','skills','experience','achievements','languages','declaration']
+      .forEach(key => {
+        document.getElementById(key).textContent = params.get(key) || '';
+      });
+    document.getElementById('downloadBtn').onclick = () => {
+      html2pdf().from(document.getElementById('resume')).save(params.get('name')+'-resume.pdf');
+    };
   </script>
 </body>
-  </html>
+                                                    </html>
