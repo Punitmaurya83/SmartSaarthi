@@ -1,34 +1,22 @@
-<h2>Select a Resume Template</h2>
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
-  <div>
-    <img src="template1.jpg" alt="Template 1" width="200"><br>
-    <button onclick="selectTemplate('template1')">Select</button>
-  </div>
-  <div>
-    <img src="template2.jpg" alt="Template 2" width="200"><br>
-    <button onclick="selectTemplate('template2')">Select</button>
-  </div>
-  <div>
-    <img src="template3.jpg" alt="Template 3" width="200"><br>
-    <button onclick="selectTemplate('template3')">Select</button>
-  </div>
-  <div>
-    <img src="template4.jpg" alt="Template 4" width="200"><br>
-    <button onclick="selectTemplate('template4')">Select</button>
-  </div>
-  <div>
-    <img src="template5.jpg" alt="Template 5" width="200"><br>
-    <button onclick="selectTemplate('template5')">Select</button>
-  </div>
-  <div>
-    <img src="template6.jpg" alt="Template 6" width="200"><br>
-    <button onclick="selectTemplate('template6')">Select</button>
-  </div>
-</div>
-
-<script>
-  function selectTemplate(template) {
-    localStorage.setItem("selectedTemplate", template);
-    window.location.href = "form.html";
-  }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Template</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    img { width: 100px; margin: 10px; cursor: pointer; border: 2px solid transparent; }
+    img:hover { border-color: blue; }
+  </style>
+</head>
+<body>
+  <h2>Select a Resume Template</h2>
+  <a href="form.html?template=template1.jpg"><img src="template1.jpg" alt="Template 1"></a>
+  <a href="form.html?template=template2.jpg"><img src="template2.jpg" alt="Template 2"></a>
+  <a href="form.html?template=template3.jpg"><img src="template3.jpg" alt="Template 3"></a>
+  <a href="form.html?template=template4.jpg"><img src="template4.jpg" alt="Template 4"></a>
+  <a href="form.html?template=template5.jpg"><img src="template5.jpg" alt="Template 5"></a>
+  <a href="form.html?template=template6.jpg"><img src="template6.jpg" alt="Template 6"></a>
+</body>
+</html>
