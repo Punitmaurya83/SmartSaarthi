@@ -1,177 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartSaarthi MCQ Practice</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .question-box { margin-bottom: 20px; }
-    .hidden { display: none; }
-    .option { margin: 8px 0; }
-    .red { color: red; }
-    .green { color: green; }
-    button { margin-top: 10px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Practice</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: url('mcq-bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+    }
+    .top-image {
+        width: 100%;
+        height: auto;
+    }
+    .content {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.6);
+    }
+    h1 {
+        margin-top: 0;
+        font-size: 2.5em;
+        color: #FFD700;
+    }
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .buttons a {
+        padding: 15px 25px;
+        font-size: 1.2em;
+        text-decoration: none;
+        color: white;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+    .buttons a:nth-child(1) { background-color: #FF5733; }
+    .buttons a:nth-child(2) { background-color: #33C1FF; }
+    .buttons a:nth-child(3) { background-color: #28A745; }
+    .buttons a:nth-child(4) { background-color: #FFC300; color: black; }
+    .buttons a:nth-child(5) { background-color: #9B59B6; }
+    .buttons a:nth-child(6) { background-color: #E67E22; }
+    .buttons a:nth-child(7) { background-color: #16A085; }
+    .buttons a:nth-child(8) { background-color: #E74C3C; }
+
+    .buttons a:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    .group-image {
+        margin-top: 30px;
+        max-width: 90%;
+        border-radius: 15px;
+    }
+    .description {
+        margin-top: 20px;
+        font-size: 1.1em;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        border-radius: 10px;
+    }
+</style>
 </head>
 <body>
-  <h1>Practice Government Exams MCQ</h1>
 
-  <div id="subject-buttons">
-    <button onclick="startTest('gk')">GK</button>
-    <button onclick="startTest('math')">Math</button>
-    <button onclick="startTest('reasoning')">Reasoning</button>
-    <button onclick="startTest('hindi')">Hindi</button>
-    <button onclick="startTest('english')">English</button>
-    <button onclick="startTest('gs')">General Science</button>
-    <button onclick="startTest('graph')">Graph Special</button>
-  </div>
+<img src="mcq-top.jpg" alt="MCQ Top Banner" class="top-image">
 
-  <div id="quiz-container" class="hidden">
-    <div id="timer">Time: 0 sec</div>
-    <div id="question-box" class="question-box"></div>
-    <button onclick="nextQuestion()">Next</button>
-    <button onclick="submitQuiz()" class="hidden">Submit</button>
-  </div>
+<div class="content">
+    <h1>MCQ Practice Hub</h1>
+    <div class="buttons">
+        <a href="#">Hindi</a>
+        <a href="#">GK</a>
+        <a href="#">GS</a>
+        <a href="#">Reasoning</a>
+        <a href="#">English</a>
+        <a href="#">DI Special</a>
+        <a href="#">Basic Math</a>
+        <a href="#">More Subjects</a>
+    </div>
 
-  <div id="result-container" class="hidden">
-    <h2>Your Score: <span id="score"></span></h2>
-    <button onclick="viewErrors()">View Errors</button>
-    <div id="error-details" class="hidden"></div>
-  </div>
+    <img src="group.jpg" alt="Group Learning" class="group-image">
 
-  <script>
-    const quizData = {
-      gk: [
-        { question: "What is the capital of India? / भारत की राजधानी क्या है?", options: ["Mumbai / मुंबई", "Delhi / दिल्ली", "Kolkata / कोलकाता", "Chennai / चेन्नई"], answer: 1 },
-        { question: "Who is the father of the Indian Constitution? / भारतीय संविधान के जनक कौन हैं?", options: ["Gandhi / गांधी", "Ambedkar / अंबेडकर", "Nehru / नेहरू", "Patel / पटेल"], answer: 1 },
-        { question: "Which is the national bird of India? / भारत का राष्ट्रीय पक्षी कौन है?", options: ["Peacock / मोर", "Sparrow / गौरैया", "Crow / कौआ", "Pigeon / कबूतर"], answer: 0 },
-        { question: "In which year did India gain independence? / भारत को स्वतंत्रता कब मिली?", options: ["1945", "1946", "1947", "1950"], answer: 2 },
-        { question: "What is the currency of India? / भारत की मुद्रा क्या है?", options: ["Dollar / डॉलर", "Rupee / रुपया", "Pound / पाउंड", "Euro / यूरो"], answer: 1 },
-        { question: "Who was the first President of India? / भारत के पहले राष्ट्रपति कौन थे?", options: ["Rajendra Prasad / राजेन्द्र प्रसाद", "Nehru / नेहरू", "Ambedkar / अंबेडकर", "Gandhi / गांधी"], answer: 0 },
-{ question: "Which planet is known as the Red Planet? / किस ग्रह को लाल ग्रह कहा जाता है?", options: ["Mars / मंगल", "Jupiter / बृहस्पति", "Venus / शुक्र", "Saturn / शनि"], answer: 0 },
-{ question: "How many states are there in India? / भारत में कितने राज्य हैं?", options: ["28", "29", "27", "30"], answer: 0 },
-{ question: "Which river is the longest in India? / भारत की सबसे लंबी नदी कौन सी है?", options: ["Ganga / गंगा", "Yamuna / यमुना", "Brahmaputra / ब्रह्मपुत्र", "Godavari / गोदावरी"], answer: 0 },
-{ question: "What is the national flower of India? / भारत का राष्ट्रीय फूल क्या है?", options: ["Rose / गुलाब", "Lily / कुमुदिनी", "Lotus / कमल", "Sunflower / सूरजमुखी"], answer: 2 },
-{ question: "Which is the highest civilian award in India? / भारत का सर्वोच्च नागरिक सम्मान कौन सा है?", options: ["Padma Shri / पद्मश्री", "Padma Bhushan / पद्म भूषण", "Padma Vibhushan / पद्म विभूषण", "Bharat Ratna / भारत रत्न"], answer: 3 },
-{ question: "Who wrote the national anthem of India? / भारत का राष्ट्रगान किसने लिखा?", options: ["Tagore / टैगोर", "Nehru / नेहरू", "Bhagat Singh / भगत सिंह", "Subhash Chandra Bose / सुभाष चंद्र बोस"], answer: 0 },
-{ question: "Which state is known as the 'Land of Five Rivers'? / किस राज्य को पांच नदियों की भूमि कहा जाता है?", options: ["Punjab / पंजाब", "Bihar / बिहार", "Haryana / हरियाणा", "UP / उत्तर प्रदेश"], answer: 0 },
-{ question: "Who invented the telephone? / टेलीफोन का आविष्कार किसने किया?", options: ["Edison / एडिसन", "Graham Bell / ग्राहम बेल", "Newton / न्यूटन", "Einstein / आइंस्टीन"], answer: 1 },
-{ question: "Which is the largest desert in India? / भारत का सबसे बड़ा रेगिस्तान कौन सा है?", options: ["Rann of Kutch / कच्छ का रण", "Thar / थार", "Ladakh / लद्दाख", "Deccan / दक्कन"], answer: 1 },
+    <div class="description">
+        Welcome to SmartSaarthi's MCQ Practice Section!  
+        Yahan aap Hindi, GK, GS, Reasoning, English, DI Special, Basic Math aur kai aur subjects ke MCQs practice kar sakte ho.  
+        Har subject ke liye alag sets aur questions available hain jo aapke exam preparation ko strong banayenge.  
+        Practice shuru karo aur apne sapno ki tayari complete karo!
+    </div>
+</div>
 
-{ question: "Who is called the 'Iron Man of India'? / भारत के लौह पुरुष कौन कहे जाते हैं?", options: ["Gandhi / गांधी", "Patel / पटेल", "Nehru / नेहरू", "Bose / बोस"], answer: 1 },
-{ question: "Which city is known as Pink City? / किस शहर को गुलाबी नगरी कहा जाता है?", options: ["Udaipur / उदयपुर", "Jaipur / जयपुर", "Jodhpur / जोधपुर", "Delhi / दिल्ली"], answer: 1 },
-{ question: "Which ocean lies to the south of India? / भारत के दक्षिण में कौन सा महासागर है?", options: ["Atlantic / अटलांटिक", "Pacific / प्रशांत", "Arctic / आर्कटिक", "Indian / हिंद महासागर"], answer: 3 },
-{ question: "Which animal is the national animal of India? / भारत का राष्ट्रीय पशु कौन है?", options: ["Lion / शेर", "Elephant / हाथी", "Tiger / बाघ", "Leopard / तेंदुआ"], answer: 2 },
-{ question: "Who discovered gravity? / गुरुत्वाकर्षण की खोज किसने की?", options: ["Einstein / आइंस्टीन", "Newton / न्यूटन", "Galileo / गैलीलियो", "Curie / क्यूरी"], answer: 1 },
-
-{ question: "Which festival is known as the festival of lights? / दीपों का त्योहार कौन सा है?", options: ["Holi / होली", "Diwali / दिवाली", "Eid / ईद", "Raksha Bandhan / रक्षाबंधन"], answer: 1 },
-{ question: "Which mineral is used to make pencils? / पेंसिल किस खनिज से बनती है?", options: ["Coal / कोयला", "Lead / सीसा", "Graphite / ग्रेफाइट", "Charcoal / चारकोल"], answer: 2 },
-{ question: "Which gas is used by plants in photosynthesis? / पौधों द्वारा प्रकाश संश्लेषण में कौन सी गैस ली जाती है?", options: ["Oxygen / ऑक्सीजन", "Hydrogen / हाइड्रोजन", "Carbon dioxide / कार्बन डाइऑक्साइड", "Nitrogen / नाइट्रोजन"], answer: 2 },
-{ question: "Who was the first woman Prime Minister of India? / भारत की पहली महिला प्रधानमंत्री कौन थीं?", options: ["Indira Gandhi / इंदिरा गांधी", "Sonia Gandhi / सोनिया गांधी", "Pratibha Patil / प्रतिभा पाटिल", "Sushma Swaraj / सुषमा स्वराज"], answer: 0 },
-{ question: "Which is the highest mountain peak in India? / भारत की सबसे ऊंची चोटी कौन सी है?", options: ["Mount Everest", "Nanda Devi", "K2", "Kanchenjunga"], answer: 3 },
-
-{ question: "Who is known as the Missile Man of India? / भारत के मिसाइल मैन किसे कहा जाता है?", options: ["Vikram Sarabhai", "Homi Bhabha", "Kalam", "Radhakrishnan"], answer: 2 },
-{ question: "Which is the longest railway platform in India? / भारत का सबसे लंबा रेलवे प्लेटफार्म कौन सा है?", options: ["Kharagpur", "Gorakhpur", "Howrah", "Chennai"], answer: 1 },
-{ question: "What is the full form of ATM? / ATM का पूरा नाम क्या है?", options: ["Any Time Money", "Automated Teller Machine", "Any Time Machine", "Auto Teller Money"], answer: 1 },
-{ question: "Who is known as the Nightingale of India? / भारत की कोकिला किसे कहा जाता है?", options: ["Lata Mangeshkar", "Sarojini Naidu", "Indira Gandhi", "Kiran Bedi"], answer: 1 },
-{ question: "Which instrument is used to measure temperature? / तापमान मापने के लिए किस यंत्र का प्रयोग होता है?", options: ["Barometer", "Thermometer", "Hygrometer", "Altimeter"], answer: 1 },
-
-{ question: "What is the chemical symbol of water? / पानी का रासायनिक सूत्र क्या है?", options: ["H2", "O2", "H2O", "HO2"], answer: 2 },
-{ question: "Which state is famous for Bihu festival? / बिहू त्योहार किस राज्य से जुड़ा है?", options: ["Bihar", "West Bengal", "Assam", "Odisha"], answer: 2 },
-{ question: "Which organ purifies blood in our body? / हमारे शरीर में कौन सा अंग रक्त को शुद्ध करता है?", options: ["Lungs", "Heart", "Kidney", "Liver"], answer: 2 },
-{ question: "In which sport is the term 'LBW' used? / 'LBW' किस खेल से संबंधित है?", options: ["Hockey", "Football", "Cricket", "Tennis"], answer: 2 },
-{ question: "What is the capital of Uttar Pradesh? / उत्तर प्रदेश की राजधानी क्या है?", options: ["Allahabad", "Varanasi", "Lucknow", "Kanpur"], answer: 2 },
-
-{ question: "Which country gifted the Statue of Liberty to the USA? / अमेरिका को स्टैचू ऑफ लिबर्टी किस देश ने उपहार में दिया?", options: ["England", "Germany", "France", "Spain"], answer: 2 },
-{ question: "Which vitamin is produced in human skin in sunlight? / सूर्य की रोशनी में त्वचा में कौन सा विटामिन बनता है?", options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"], answer: 3 },
-{ question: "Which state is known for the Sunderbans? / सुंदरबन किस राज्य में स्थित है?", options: ["Bihar", "Odisha", "West Bengal", "Assam"], answer: 2 },
-{ question: "Which city is known as the Silicon Valley of India? / भारत की सिलिकॉन वैली किसे कहा जाता है?", options: ["Hyderabad", "Bangalore", "Chennai", "Pune"], answer: 1 },
-{ question: "Which Indian festival is celebrated with kites? / कौन सा भारतीय त्योहार पतंगबाजी से मनाया जाता है?", options: ["Diwali", "Dussehra", "Holi", "Makar Sankranti"], answer: 3 }
-      ],
-      math: [],
-      reasoning: [],
-      hindi: [],
-      english: [],
-      gs: [],
-      graph: []
-    };
-
-    let currentSubject = "";
-    let currentQuestion = 0;
-    let selectedAnswers = [];
-    let startTime = 0;
-
-    function startTest(subject) {
-      currentSubject = subject;
-      currentQuestion = 0;
-      selectedAnswers = [];
-      startTime = Date.now();
-      document.getElementById('subject-buttons').classList.add('hidden');
-      document.getElementById('quiz-container').classList.remove('hidden');
-      showQuestion();
-      startTimer();
-    }
-
-    function showQuestion() {
-      const q = quizData[currentSubject][currentQuestion];
-      const box = document.getElementById('question-box');
-      box.innerHTML = `<p><strong>Q${currentQuestion + 1}:</strong> ${q.question}</p>`;
-      q.options.forEach((opt, i) => {
-        box.innerHTML += `<div class="option"><input type='radio' name='option' value='${i}' /> ${opt}</div>`;
-      });
-    }
-
-    function nextQuestion() {
-      const selected = document.querySelector('input[name="option"]:checked');
-      if (!selected) return alert("Please select an option");
-      selectedAnswers.push(parseInt(selected.value));
-      currentQuestion++;
-      if (currentQuestion < quizData[currentSubject].length) {
-        showQuestion();
-        if (currentQuestion === quizData[currentSubject].length - 1) {
-          document.querySelector("button[onclick='nextQuestion()']").classList.add("hidden");
-          document.querySelector("button[onclick='submitQuiz()']").classList.remove("hidden");
-        }
-      }
-    }
-
-    function submitQuiz() {
-      let score = 0;
-      const questions = quizData[currentSubject];
-      questions.forEach((q, i) => {
-        if (q.answer === selectedAnswers[i]) score++;
-      });
-      document.getElementById('quiz-container').classList.add('hidden');
-      document.getElementById('result-container').classList.remove('hidden');
-      document.getElementById('score').textContent = `${score} / ${questions.length}`;
-    }
-
-    function viewErrors() {
-      const questions = quizData[currentSubject];
-      const errorDiv = document.getElementById('error-details');
-      errorDiv.innerHTML = '';
-      questions.forEach((q, i) => {
-        if (q.answer !== selectedAnswers[i]) {
-          const userAnswer = q.options[selectedAnswers[i]] || 'Not Answered';
-          const correctAnswer = q.options[q.answer];
-          errorDiv.innerHTML += `
-            <p><strong>Q${i + 1}:</strong> ${q.question}</p>
-            <p><span class="red">Your Answer: ${userAnswer}</span></p>
-            <p><span class="green">Correct Answer: ${correctAnswer}</span></p><hr />
-          `;
-        }
-      });
-      errorDiv.classList.remove('hidden');
-    }
-
-    function startTimer() {
-      const timerDisplay = document.getElementById('timer');
-      setInterval(() => {
-        let seconds = Math.floor((Date.now() - startTime) / 1000);
-        timerDisplay.textContent = `Time: ${seconds} sec`;
-      }, 1000);
-    }
-  </script>
 </body>
-</html>
+  </html>
