@@ -5,26 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SmartSaarthi MCQ Test</title>
 <style>
-  body, html {
-    margin: 0; padding: 0; height: 100%;
+  body {
     font-family: Arial, sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
+    margin: 0;
+    background: url('background.jpg') no-repeat center center/cover;
     color: white;
+    text-align: center;
   }
   header {
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     font-size: 28px;
     font-weight: bold;
-    text-align: center;
   }
   .subjects {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 20px auto;
-    max-width: 900px;
+    margin-top: 20px;
   }
   .subjects button {
     background: linear-gradient(45deg, #ff4e50, #f9d423);
@@ -41,91 +39,54 @@
     transform: scale(1.1);
   }
   #quizContainer {
-    max-width: 700px;
-    margin: 30px auto 60px auto;
-    background: rgba(0,0,0,0.85);
-    border-radius: 10px;
+    max-width: 600px;
+    margin: 30px auto;
+    background: rgba(0, 0, 0, 0.7);
     padding: 20px;
+    border-radius: 10px;
     display: none;
+    text-align: left;
   }
   #questionText {
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 15px;
+    color: white;
   }
   #optionsContainer label {
     display: block;
-    background: rgba(255,255,255,0.1);
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 6px;
+    padding: 8px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
     cursor: pointer;
-  }
-  #optionsContainer input[type="radio"] {
-    margin-right: 12px;
-    cursor: pointer;
+    color: white;
   }
   .buttons {
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
   }
   .buttons button {
-    padding: 12px 30px;
-    margin: 0 25px;
+    padding: 10px 20px;
+    margin: 10px 15px;
     font-size: 16px;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    color: white;
-  }
-  .next-btn {
-    background-color: #4CAF50;
-  }
-  .next-btn:hover {
-    background-color: #3e8e41;
-  }
-  .prev-btn {
-    background-color: #2196F3;
-  }
-  .prev-btn:hover {
-    background-color: #1769aa;
-  }
-  .finish-btn {
-    background-color: #f44336;
-  }
-  .finish-btn:hover {
-    background-color: #da190b;
-  }
-  .correct {
-    background-color: #2ecc71 !important;
-    color: white;
-    font-weight: bold;
-  }
-  .incorrect {
-    background-color: #e74c3c !important;
-    color: white;
-    font-weight: bold;
-  }
-  #resultContainer {
-    max-width: 700px;
-    margin: 30px auto 60px auto;
-    background: rgba(0,0,0,0.9);
-    border-radius: 10px;
-    padding: 20px;
-    display: none;
-    color: white;
-  }
-  #resultContainer h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  #resultContainer .question {
-    margin-bottom: 12px;
-  }
-  #resultContainer .options div {
-    padding: 8px;
     border-radius: 5px;
-    margin: 4px 0;
+    cursor: pointer;
+  }
+  .prev-btn { background: #2196F3; color: white; }
+  .next-btn { background: #4CAF50; color: white; }
+  .finish-btn { background: #f44336; color: white; }
+  .correct { background-color: green !important; }
+  .incorrect { background-color: red !important; }
+  #resultContainer {
+    max-width: 600px;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.7);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: left;
+    display: none;
   }
 </style>
 </head>
@@ -156,129 +117,189 @@
 <div id="resultContainer"></div>
 
 <script>
-const questions = {
+  const questions = {
   "Hindi": [
     {q: "निम्नलिखित में से कौन-सा छंद सबसे छोटा माना जाता है?", options:["त्रिपदी", "दोहा", "चौपाई", "सर्ग"], answer: 1},
     {q: "कालिदास की रचना 'मेघदूत' में प्रमुख पात्र कौन है?", options:["कुमुद", "मेघदूत", "राजा रुद्रदमन", "सुदर्शन"], answer: 1},
     {q: "भक्ति काल के कवि तुलसीदास ने किस विषय पर लिखा है?", options:["रामायण", "महाभारत", "भगवद्गीता", "पुराण"], answer: 0},
     {q: "हिंदी भाषा किस भाषा परिवार से संबंधित है?", options:["द्रविड़", "इंडो-आर्यन", "तिब्बती-बर्मी", "उरालिक"], answer: 1},
-    {q: "निम्नलिखित में से कौन-सा शब्द व्याकरण की दृष्टि से संधि विहीन है?", options:["राम + इन्द्र", "देव + उदय", "शनि + देव", "मस्त + भव"], answer: 3},
-    {q: "साहित्य में 'अतिशयोक्ति' किसको कहते हैं?", options:["बहुत बड़ी खुशी", "अधिक वर्णन", "अधिक तुलना", "अतिरिक्त वर्णन"], answer: 3},
-    {q: "रश्मि किस प्रकार की कविता होती है?", options:["निबंध", "गीत", "हाइकु", "नाटक"], answer: 2},
-    {q: "कवि निराला का पूरा नाम क्या है?", options:["सूर्यनाथ त्रिपाठी", "सूर्यकांत त्रिपाठी", "सूर्यकांत त्रिपाठी निराला", "सूरजकांत त्रिपाठी"], answer: 2},
-    {q: "भारतीय साहित्य में 'प्राचीन काल' कब तक माना जाता है?", options:["1500 ईसा पूर्व तक", "600 ईस्वी तक", "1200 ईस्वी तक", "1500 ईस्वी तक"], answer: 1},
-    {q: "किस छंद में 8 पद होते हैं?", options:["अष्टक", "दोहा", "चौपाई", "सर्ग"], answer: 0},
-    {q: "सूरदास जी का प्रमुख योगदान किस क्षेत्र में है?", options:["भक्ति गीत", "नाटक", "काव्य", "निबंध"], answer: 0},
-    {q: "निम्नलिखित में से कौन सा हिंदी व्याकरण का भाग नहीं है?", options:["संधि", "समास", "वर्णमाला", "रचना"], answer: 3},
-    {q: "रूढ़िवादी साहित्य का क्या अर्थ है?", options:["नवीन विचार", "परंपरागत विचार", "विवादास्पद विचार", "लोकप्रिय विचार"], answer: 1},
-    {q: "निम्नलिखित में से किसे हिंदी के महान कवि माना जाता है?", options:["मीराबाई", "सूरदास", "सूर्यकांत त्रिपाठी निराला", "कबीर"], answer: 2},
-    {q: "हिंदी साहित्य में 'छायावाद' किस काल को कहते हैं?", options:["1900-1930", "1850-1900", "1930-1950", "1950-1970"], answer: 0},
-    {q: "विलोम शब्द का अर्थ क्या होता है?", options:["समानार्थी", "विपरीत अर्थ", "प्रतीक", "संयुक्त शब्द"], answer: 1},
-    {q: "निम्नलिखित में से कौन-सा काव्य अलंकार है?", options:["उपमा", "अनुप्रास", "रूपक", "यमक"], answer: 0},
-    {q: "निम्नलिखित में से कौन-सा हिंदी व्याकरण का अंग है?", options:["क्रिया", "वर्ण", "संख्या", "लिंग"], answer: 0},
-    {q: "मीराबाई किस देवता की भक्ति करती थीं?", options:["शिव", "विष्णु", "कृष्ण", "राम"], answer: 2},
-    {q: "हिंदी का पहला साहित्यिक ग्रंथ कौन सा माना जाता है?", options:["रामायण", "गीता", "काव्यप्रकाश", "साहित्यसागर"], answer: 2},
-    {q: "हिंदी भाषा की उत्पत्ति कहाँ हुई मानी जाती है?", options:["उत्तर प्रदेश", "मध्य प्रदेश", "राजस्थान", "बिहार"], answer: 0},
-    {q: "कवि दिनकर का पूर्ण नाम क्या है?", options:["सूर्यकांत त्रिपाठी", "कुसुमाग्रज", "सूर्यकांत त्रिपाठी दिनकर", "रामधारी सिंह"], answer: 2},
-    {q: "हिंदी व्याकरण में 'संज्ञा' क्या होती है?", options:["क्रिया", "नाम", "विशेषण", "सर्वनाम"], answer: 1},
-    {q: "निम्नलिखित में से कौन-सा हिंदी का आधुनिक कवि है?", options:["जयशंकर प्रसाद", "हरिवंश राय बच्चन", "रामधारी सिंह दिनकर", "कुमार विश्वास"], answer: 3}
+    {q: "निम्नलिखित में से कौन-सा शब्द व्याकरण की दृष्टि से संधि विहीन है?", options:["राम + इन्द्र", "देव + उदय", "शनि + देव", "मस्त + भव"], answer: 3}
   ],
   "GK": [
     {q: "विन्ध्य पर्वत श्रृंखला भारत के किस भाग से होकर गुजरती है?", options:["उत्तर भारत", "दक्षिण भारत", "पूर्व भारत", "पश्चिम भारत"], answer: 0},
     {q: "भारत का सबसे बड़ा जलप्रपात कौन सा है?", options:["डूड्सन फॉल्स", "नीयाग्रा फॉल्स", "जलमगिरी फॉल्स", "तुंगभद्रा फॉल्स"], answer: 2},
     {q: "निम्नलिखित में से कौन सा ग्रह अपनी धुरी पर सबसे तेज गति करता है?", options:["पृथ्वी", "बुध", "बृहस्पति", "शुक्र"], answer: 2},
     {q: "संयुक्त राष्ट्र संघ का मुख्यालय कहाँ स्थित है?", options:["न्यूयॉर्क", "जिनेवा", "वाशिंगटन डीसी", "पेरिस"], answer: 0},
-    {q: "निम्नलिखित में से कौन सा विश्व धरोहर स्थल भारत में स्थित नहीं है?", options:["अजंता गुफाएँ", "माचू पिच्चू", "कुतुब मीनार", "हंपी"], answer: 1},
-    {q: "भारत का राष्ट्रीय खेल कौन सा है?", options:["क्रिकेट", "हॉकी", "फुटबॉल", "कबड्डी"], answer: 1},
-    {q: "भारत के पहले राष्ट्रपति कौन थे?", options:["डॉ. राजेंद्र प्रसाद", "डॉ. सर्वपल्ली राधाकृष्णन", "डॉ. बाबासाहेब आंबेडकर", "महात्मा गांधी"], answer: 0},
-    {q: "किस देश को 'सूरज की तपिश वाला देश' कहा जाता है?", options:["भारत", "चीन", "अफगानिस्तान", "मिस्र"], answer: 3},
-    {q: "विश्व की सबसे लंबी नदी कौन सी है?", options:["गंगा", "नील", "अमेज़न", "यांग्त्ज़ी"], answer: 1},
-    {q: "किस भारतीय राज्य को 'सूरज का राज्य' कहा जाता है?", options:["राजस्थान", "मध्य प्रदेश", "उत्तर प्रदेश", "गुजरात"], answer: 0},
-    {q: "भारत के राष्ट्रीय पशु कौन से हैं?", options:["शेर", "हाथी", "बाघ", "गैंडा"], answer: 2},
-    {q: "भारत की राजधानी क्या है?", options:["मुम्बई", "दिल्ली", "कोलकाता", "चेन्नई"], answer: 1},
-    {q: "गंगा नदी किस समुद्र में मिलती है?", options:["अरब सागर", "बंगाल की खाड़ी", "लाल सागर", "हिन्द महासागर"], answer: 1},
-    {q: "भारत का राष्ट्रीय पक्षी कौन है?", options:["मोर", "तोता", "कौआ", "गुलाबी इबिस"], answer: 0},
-    {q: "भारत में सबसे अधिक बोली जाने वाली भाषा कौन सी है?", options:["हिंदी", "तमिल", "तेलुगू", "बंगाली"], answer: 0},
-    {q: "विश्व का सबसे बड़ा महाद्वीप कौन सा है?", options:["एशिया", "अफ्रीका", "यूरोप", "अंटार्कटिका"], answer: 0},
-    {q: "भारत के प्रथम प्रधानमंत्री कौन थे?", options:["महात्मा गांधी", "डॉ. राजेंद्र प्रसाद", "जवाहरलाल नेहरू", "सुभाष चंद्र बोस"], answer: 2},
-    {q: "सूरज से सबसे नजदीक ग्रह कौन सा है?", options:["शुक्र", "बुध", "पृथ्वी", "मार्स"], answer: 1},
-    {q: "भारत का सबसे बड़ा राज्य क्षेत्रफल के हिसाब से कौन सा है?", options:["राजस्थान", "मध्य प्रदेश", "महाराष्ट्र", "उत्तर प्रदेश"], answer: 0},
-    {q: "भारतीय संविधान को कब अपनाया गया था?", options:["1947", "1950", "1952", "1949"], answer: 1},
-    {q: "भारत का राष्ट्रीय खेल कब आधिकारिक घोषित हुआ?", options:["1928", "1936", "1947", "1950"], answer: 0},
-    {q: "ताजमहल कहाँ स्थित है?", options:["दिल्ली", "आगरा", "जयपुर", "लखनऊ"], answer: 1},
-    {q: "विश्व का सबसे बड़ा महासागर कौन सा है?", options:["हिन्द महासागर", "प्रशांत महासागर", "अटलांटिक महासागर", "आर्कटिक महासागर"], answer: 1},
-    {q: "न्यूयॉर्क किस देश में है?", options:["कनाडा", "संयुक्त राज्य अमेरिका", "यूके", "ऑस्ट्रेलिया"], answer: 1},
-    {q: "निम्नलिखित में से भारत का सबसे बड़ा प्रायद्वीपीय राज्य कौन सा है?", options:["तमिलनाडु", "कर्नाटक", "महाराष्ट्र", "आंध्र प्रदेश"], answer: 2}
+    {q: "भारत का राष्ट्रीय पशु कौन सा है?", options:["सिंह", "हाथी", "बाघ", "गैंडा"], answer: 2}
   ],
   "GS": [
-    {q: "हिमालय पर्वत श्रृंखला किस युग में बनी?", options:["तृतीयकाल", "चतुर्थकाल", "द्वितीयकाल", "प्रथमकाल"], answer: 0},
-    {q: "पृथ्वी के वायुमंडल में सबसे अधिक मात्रा में कौन-सा गैस होता है?", options:["ऑक्सीजन", "नाइट्रोजन", "कार्बन डाइऑक्साइड", "हाइड्रोजन"], answer: 1},
-    {q: "जलवायु परिवर्तन को रोकने के लिए सबसे प्रभावी उपाय क्या है?", options:["वनों की कटाई", "हरित ऊर्जा का उपयोग", "जीवाश्म ईंधन का उपयोग बढ़ाना", "औद्योगिक प्रदूषण बढ़ाना"], answer: 1},
-    {q: "किस ग्रह को लाल ग्रह कहा जाता है?", options:["मंगल", "शुक्र", "बृहस्पति", "शनि"], answer: 0},
-    {q: "भारत का राष्ट्रीय पशु कौन सा है?", options:["शेर", "बाघ", "हाथी", "गैंडा"], answer: 1},
-    {q: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options:["हिन्द महासागर", "प्रशांत महासागर", "अटलांटिक महासागर", "आर्कटिक महासागर"], answer: 1},
-    {q: "भारत में सबसे बड़ा बांध कौन सा है?", options:["तेलांगाना बांध", "सागर बांध", "तिनसुकिया बांध", "तलाम बांध"], answer: 1},
-    {q: "सौरमंडल में सबसे बड़ा ग्रह कौन सा है?", options:["पृथ्वी", "शनि", "बृहस्पति", "मंगल"], answer: 2},
-    {q: "मानव शरीर में सबसे लंबी हड्डी कौन सी है?", options:["हड्डी की हड्डी", "फीमर", "कूल्हे की हड्डी", "हड्डी का सिर"], answer: 1},
-    function finishQuiz() {
-  let score = 0;
-  let resultHTML = `<h2>Result - ${currentSubject}</h2><p>Your Score: `;
-  questions[currentSubject].forEach((q, idx) => {
-    let correctIdx = q.answer;
-    let userIdx = userAnswers[idx];
-    if(correctIdx === userIdx) score++;
-  });
-  resultHTML += `${score} / ${questions[currentSubject].length}</p>`;
+    {q: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options:["प्रशांत महासागर", "हिन्द महासागर", "अटलांटिक महासागर", "आर्कटिक महासागर"], answer: 0},
+    {q: "भारत का स्वतंत्रता दिवस कब मनाया जाता है?", options:["15 अगस्त", "26 जनवरी", "2 अक्टूबर", "30 जनवरी"], answer: 0},
+    {q: "सूर्य के सबसे निकट ग्रह कौन सा है?", options:["बुध", "शुक्र", "पृथ्वी", "मंगल"], answer: 0},
+    {q: "मानव शरीर में रक्त का मुख्य घटक क्या है?", options:["प्लाज्मा", "सील", "एंटीबॉडी", "हार्मोन"], answer: 0},
+    {q: "वायुमंडल में सबसे अधिक मात्रा में कौन सा गैस होता है?", options:["नाइट्रोजन", "ऑक्सीजन", "कार्बन डाइऑक्साइड", "हीलियम"], answer: 0}
+  ],
+  "Reasoning": [
+    {q: "अगर A = 1, B = 2, C = 3,... तो CAT का मान क्या होगा?", options:["24", "19", "31", "23"], answer: 2},
+    {q: "किस संख्या में 5 का 60% होगा?", options:["8", "10", "12", "15"], answer: 3},
+    {q: "अगर 6 बच्चे 6 घंटे में 6 खिलौने बनाते हैं, तो 3 बच्चे कितने घंटे में 3 खिलौने बनाएंगे?", options:["3 घंटे", "6 घंटे", "9 घंटे", "12 घंटे"], answer: 1},
+    {q: "निम्नलिखित में से कौन सा वर्ग संख्या है?", options:["49", "51", "63", "77"], answer: 0},
+    {q: "अगर एक दिन में 8 घंटे काम होता है, तो 3 दिन में कितने घंटे काम होगा?", options:["24", "16", "20", "18"], answer: 0}
+  ],
+  "English": [
+    {q: "Choose the correct synonym of 'Happy'.", options:["Sad", "Joyful", "Angry", "Tired"], answer: 1},
+    {q: "Select the antonym of 'Increase'.", options:["Reduce", "Grow", "Raise", "Build"], answer: 0},
+    {q: "Identify the adjective in the sentence: 'The sky is blue.'", options:["Sky", "Blue", "Is", "The"], answer: 1},
+    {q: "Choose the correct past tense of 'Go'.", options:["Went", "Gone", "Go", "Goed"], answer: 0},
+    {q: "Fill in the blank: She _____ to school every day.", options:["go", "goes", "gone", "going"], answer: 1}
+  ],
+  "DI Special": [
+    {q: "एक बार में 5 लीटर पानी टंकी में डाला जाता है। यदि टंकी में 100 लीटर पानी भरना है, तो कितनी बार पानी डाला जाएगा?", options:["15", "20", "25", "30"], answer: 1},
+    {q: "चारों तरफ़ 10 मीटर लंबा बाड़ा लगाने के लिए कुल कितनी लंबाई चाहिए?", options:["40 मीटर", "30 मीटर", "50 मीटर", "60 मीटर"], answer: 0},
+    {q: "यदि एक व्यक्ति 3 किलोमीटर प्रति घंटा की गति से चलता है, तो वह 2 घंटे में कितनी दूरी तय करेगा?", options:["3 किलोमीटर", "5 किलोमीटर", "6 किलोमीटर", "9 किलोमीटर"], answer: 2},
+    {q: "अगर एक कार 60 किलोमीटर प्रति घंटे की रफ्तार से चलती है, तो 3 घंटे में कितनी दूरी तय करेगी?", options:["120 किलोमीटर", "180 किलोमीटर", "200 किलोमीटर", "240 किलोमीटर"], answer: 1},
+    {q: "एक दुकान में एक पेन की कीमत 10 रुपये है। 5 पेन की कीमत कितनी होगी?", options:["40 रुपये", "50 रुपये", "60 रुपये", "30 रुपये"], answer: 1}
+  ],
+  "Basic Math": [
+    {q: "10 का वर्गमूल क्या है?", options:["3", "5", "10", "100"], answer: 1},
+    {q: "5 + 7 = ?", options:["10", "11", "12", "13"], answer: 2},
+    {q: "यदि 3x = 12, तो x = ?", options:["3", "4", "5", "6"], answer: 1},
+    {q: "एक त्रिभुज के तीन कोणों का योग कितना होता है?", options:["90°", "180°", "270°", "360°"], answer: 1},
+    {q: "12 ÷ 3 = ?", options:["3", "4", "5", "6"], answer: 1}
+  ]
+};
+  const questions = {
+    "Hindi": [
+      {q: "निम्नलिखित में से कौन-सा छंद सबसे छोटा माना जाता है?", options:["त्रिपदी", "दोहा", "चौपाई", "सर्ग"], answer: 1},
+      {q: "कालिदास की रचना 'मेघदूत' में प्रमुख पात्र कौन है?", options:["कुमुद", "मेघदूत", "राजा रुद्रदमन", "सुदर्शन"], answer: 1},
+      {q: "भक्ति काल के कवि तुलसीदास ने किस विषय पर लिखा है?", options:["रामायण", "महाभारत", "भगवद्गीता", "पुराण"], answer: 0},
+      {q: "हिंदी भाषा किस भाषा परिवार से संबंधित है?", options:["द्रविड़", "इंडो-आर्यन", "तिब्बती-बर्मी", "उरालिक"], answer: 1},
+      {q: "निम्नलिखित में से कौन-सा शब्द व्याकरण की दृष्टि से संधि विहीन है?", options:["राम + इन्द्र", "देव + उदय", "शनि + देव", "मस्त + भव"], answer: 3}
+    ],
+    "GK": [
+      {q: "विन्ध्य पर्वत श्रृंखला भारत के किस भाग से होकर गुजरती है?", options:["उत्तर भारत", "दक्षिण भारत", "पूर्व भारत", "पश्चिम भारत"], answer: 0},
+      {q: "भारत का सबसे बड़ा जलप्रपात कौन सा है?", options:["डूड्सन फॉल्स", "नीयाग्रा फॉल्स", "जलमगिरी फॉल्स", "तुंगभद्रा फॉल्स"], answer: 2},
+      {q: "निम्नलिखित में से कौन सा ग्रह अपनी धुरी पर सबसे तेज गति करता है?", options:["पृथ्वी", "बुध", "बृहस्पति", "शुक्र"], answer: 2},
+      {q: "संयुक्त राष्ट्र संघ का मुख्यालय कहाँ स्थित है?", options:["न्यूयॉर्क", "जिनेवा", "वाशिंगटन डीसी", "पेरिस"], answer: 0},
+      {q: "भारत का राष्ट्रीय पशु कौन सा है?", options:["सिंह", "हाथी", "बाघ", "गैंडा"], answer: 2}
+    ],
+    "GS": [
+      {q: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options:["प्रशांत महासागर", "हिन्द महासागर", "अटलांटिक महासागर", "आर्कटिक महासागर"], answer: 0},
+      {q: "भारत का स्वतंत्रता दिवस कब मनाया जाता है?", options:["15 अगस्त", "26 जनवरी", "2 अक्टूबर", "30 जनवरी"], answer: 0},
+      {q: "सूर्य के सबसे निकट ग्रह कौन सा है?", options:["बुध", "शुक्र", "पृथ्वी", "मंगल"], answer: 0},
+      {q: "मानव शरीर में रक्त का मुख्य घटक क्या है?", options:["प्लाज्मा", "सील", "एंटीबॉडी", "हार्मोन"], answer: 0},
+      {q: "वायुमंडल में सबसे अधिक मात्रा में कौन सा गैस होता है?", options:["नाइट्रोजन", "ऑक्सीजन", "कार्बन डाइऑक्साइड", "हीलियम"], answer: 0}
+    ],
+    "Reasoning": [
+      {q: "अगर A = 1, B = 2, C = 3,... तो CAT का मान क्या होगा?", options:["24", "19", "31", "23"], answer: 2},
+      {q: "किस संख्या में 5 का 60% होगा?", options:["8", "10", "12", "15"], answer: 3},
+      {q: "अगर 6 बच्चे 6 घंटे में 6 खिलौने बनाते हैं, तो 3 बच्चे कितने घंटे में 3 खिलौने बनाएंगे?", options:["3 घंटे", "6 घंटे", "9 घंटे", "12 घंटे"], answer: 1},
+      {q: "निम्नलिखित में से कौन सा वर्ग संख्या है?", options:["49", "51", "63", "77"], answer: 0},
+      {q: "अगर एक दिन में 8 घंटे काम होता है, तो 3 दिन में कितने घंटे काम होगा?", options:["24", "16", "20", "18"], answer: 0}
+    ],
+    "English": [
+      {q: "Choose the correct synonym of 'Happy'.", options:["Sad", "Joyful", "Angry", "Tired"], answer: 1},
+      {q: "Select the antonym of 'Increase'.", options:["Reduce", "Grow", "Raise", "Build"], answer: 0},
+      {q: "Identify the adjective in the sentence: 'The sky is blue.'", options:["Sky", "Blue", "Is", "The"], answer: 1},
+      {q: "Choose the correct past tense of 'Go'.", options:["Went", "Gone", "Go", "Goed"], answer: 0},
+      {q: "Fill in the blank: She _____ to school every day.", options:["go", "goes", "gone", "going"], answer: 1}
+    ],
+    "DI Special": [
+      {q: "एक बार में 5 लीटर पानी टंकी में डाला जाता है। यदि टंकी में 100 लीटर पानी भरना है, तो कितनी बार पानी डाला जाएगा?", options:["15", "20", "25", "30"], answer: 1},
+      {q: "चारों तरफ़ 10 मीटर लंबा बाड़ा लगाने के लिए कुल कितनी लंबाई चाहिए?", options:["40 मीटर", "30 मीटर", "50 मीटर", "60 मीटर"], answer: 0},
+      {q: "यदि एक व्यक्ति 3 किलोमीटर प्रति घंटा की गति से चलता है, तो वह 2 घंटे में कितनी दूरी तय करेगा?", options:["3 किलोमीटर", "5 किलोमीटर", "6 किलोमीटर", "9 किलोमीटर"], answer: 2},
+      {q: "अगर एक कार 60 किलोमीटर प्रति घंटे की रफ्तार से चलती है, तो 3 घंटे में कितनी दूरी तय करेगी?", options:["120 किलोमीटर", "180 किलोमीटर", "200 किलोमीटर", "240 किलोमीटर"], answer: 1},
+      {q: "एक दुकान में एक पेन की कीमत 10 रुपये है। 5 पेन की कीमत कितनी होगी?", options:["40 रुपये", "50 रुपये", "60 रुपये", "30 रुपये"], answer: 1}
+    ],
+    "Basic Math": [
+      {q: "10 का वर्गमूल क्या है?", options:["3", "5", "10", "100"], answer: 1},
+      {q: "5 + 7 = ?", options:["10", "11", "12", "13"], answer: 2},
+      {q: "यदि 3x = 12, तो x = ?", options:["3", "4", "5", "6"], answer: 1},
+      {q: "एक त्रिभुज के तीन कोणों का योग कितना होता है?", options:["90°", "180°", "270°", "360°"], answer: 1},
+      {q: "12 ÷ 3 = ?", options:["3", "4", "5", "6"], answer: 1}
+    ]
+  };
 
-  resultHTML += `<button onclick="reviewErrors()">View Errors</button> | <button onclick="restartQuiz()">Restart</button> | <button onclick="goToSubjects()">Select Subject</button>`;
+  let currentSubject = null;
+  let currentIndex = 0;
+  let userAnswers = [];
 
-  resultHTML += `<div id="errorList" style="margin-top:20px;"></div>`;
-
-  document.getElementById("quizContainer").style.display = "none";
-  document.getElementById("resultContainer").style.display = "block";
-  document.getElementById("resultContainer").innerHTML = resultHTML;
-}
-
-function reviewErrors() {
-  let errorDiv = document.getElementById("errorList");
-  errorDiv.innerHTML = "";
-  let hasErrors = false;
-  questions[currentSubject].forEach((q, idx) => {
-    let userIdx = userAnswers[idx];
-    if(userIdx !== q.answer) {
-      hasErrors = true;
-      let optionsHTML = "";
-      q.options.forEach((opt, i) => {
-        let cls = "";
-        if(i === q.answer) cls = "correct";
-        else if(i === userIdx) cls = "incorrect";
-        optionsHTML += `<div class="${cls}">${String.fromCharCode(65+i)}. ${opt}</div>`;
-      });
-      errorDiv.innerHTML += `<div class="question"><b>Q${idx+1}:</b> ${q.q}<div class="options">${optionsHTML}</div></div><hr>`;
-    }
-  });
-  if(!hasErrors) {
-    errorDiv.innerHTML = "<p>Congratulations! No errors found.</p>";
+  function startQuiz(subject) {
+    currentSubject = subject;
+    currentIndex = 0;
+    userAnswers = new Array(questions[subject].length).fill(null);
+    document.getElementById('subjectsContainer').style.display = 'none';
+    document.getElementById('quizContainer').style.display = 'block';
+    document.getElementById('resultContainer').style.display = 'none';
+    showQuestion();
   }
-}
 
-function restartQuiz() {
-  userAnswers = Array(questions[currentSubject].length).fill(null);
-  currentQuestionIndex = 0;
-  document.getElementById("resultContainer").style.display = "none";
-  document.getElementById("quizContainer").style.display = "block";
-  showQuestion();
-}
+  function showQuestion() {
+    const questionObj = questions[currentSubject][currentIndex];
+    document.getElementById('questionText').textContent = `Q${currentIndex+1}. ${questionObj.q}`;
+    const optionsDiv = document.getElementById('optionsContainer');
+    optionsDiv.innerHTML = '';
+    questionObj.options.forEach((opt, idx) => {
+      const optionId = `option${idx}`;
+      const label = document.createElement('label');
+      label.htmlFor = optionId;
+      label.textContent = opt;
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'option';
+      input.id = optionId;
+      input.value = idx;
+      if (userAnswers[currentIndex] === idx) input.checked = true;
+      input.onchange = () => { userAnswers[currentIndex] = idx; };
+      label.prepend(input);
+      optionsDiv.appendChild(label);
+    });
 
-function goToSubjects() {
-  currentSubject = "";
-  userAnswers = [];
-  currentQuestionIndex = 0;
-  document.getElementById("resultContainer").style.display = "none";
-  document.getElementById("quizContainer").style.display = "none";
-  document.getElementById("subjectsContainer").style.display = "flex";
-}
+    // Button disable/enable logic
+    document.querySelector('.prev-btn').disabled = currentIndex === 0;
+    document.querySelector('.next-btn').disabled = currentIndex === questions[currentSubject].length - 1;
+  }
+
+  function nextQuestion() {
+    if (currentIndex < questions[currentSubject].length - 1) {
+      currentIndex++;
+      showQuestion();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showQuestion();
+    }
+  }
+
+  function finishQuiz() {
+    let score = 0;
+    const total = questions[currentSubject].length;
+    for (let i=0; i<total; i++) {
+      if(userAnswers[i] === questions[currentSubject][i].answer) score++;
+    }
+    document.getElementById('quizContainer').style.display = 'none';
+    const resultDiv = document.getElementById('resultContainer');
+    resultDiv.style.display = 'block';
+    let resultHTML = `<h2>Your Score: ${score} / ${total}</h2>`;
+    resultHTML += '<h3>Review:</h3>';
+    for (let i=0; i<total; i++) {
+      const q = questions[currentSubject][i];
+      resultHTML += `<div class="question">Q${i+1}. ${q.q}</div><div class="options">`;
+      q.options.forEach((opt, idx) => {
+        if(idx === q.answer){
+          resultHTML += `<div style="background-color:#2ecc71; color:white; padding:5px; margin:3px; border-radius:4px;">Correct: ${opt}</div>`;
+        } else if(idx === userAnswers[i]) {
+          resultHTML += `<div style="background-color:#e74c3c; color:white; padding:5px; margin:3px; border-radius:4px;">Your Answer: ${opt}</div>`;
+        }
+      });
+      resultHTML += '</div><hr>';
+    }
+    resultDiv.innerHTML = resultHTML;
+  }
 </script>
 
 </body>
-</html>
+  </html>
