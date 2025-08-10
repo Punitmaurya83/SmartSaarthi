@@ -1,199 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartSaarthi - Punit's Academy</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SmartSaarthi MCQ Test</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: url('background.jpg') no-repeat center center/cover;
-        color: white;
-        text-align: center;
-    }
-    header {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 20px;
-        font-size: 28px;
-        font-weight: bold;
-    }
-    .subjects {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .subjects button {
-        background: linear-gradient(45deg, #ff4e50, #f9d423);
-        border: none;
-        color: white;
-        padding: 15px 25px;
-        margin: 10px;
-        font-size: 16px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .subjects button:hover {
-        transform: scale(1.1);
-    }
-    .quiz-container {
-        max-width: 600px;
-        margin: 30px auto;
-        background: rgba(0, 0, 0, 0.7);
-        padding: 20px;
-        border-radius: 10px;
-        display: none;
-    }
-    .question {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
-    .options {
-        text-align: left;
-    }
-    .options label {
-        display: block;
-        padding: 8px;
-        margin: 5px 0;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .buttons {
-        margin-top: 20px;
-    }
-    .buttons button {
-        padding: 10px 20px;
-        margin: 5px;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .next-btn { background: #4CAF50; color: white; }
-    .prev-btn { background: #2196F3; color: white; }
-    .finish-btn { background: #f44336; color: white; }
-    .correct { background-color: green !important; }
-    .incorrect { background-color: red !important; }
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: Arial, sans-serif;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+  }
+  header {
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .subjects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 900px;
+  }
+  .subjects button {
+    background: linear-gradient(45deg, #ff4e50, #f9d423);
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .subjects button:hover {
+    transform: scale(1.1);
+  }
+  #quizContainer {
+    max-width: 700px;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.75);
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+  }
+  #questionText {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  #optionsContainer label {
+    display: block;
+    background: rgba(255,255,255,0.1);
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #optionsContainer input[type="radio"] {
+    margin-right: 12px;
+    cursor: pointer;
+  }
+  .buttons {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .buttons button {
+    background-color: #2196F3;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    margin: 0 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .buttons button:hover {
+    background-color: #1769aa;
+  }
+  .next-btn { background-color: #4CAF50; }
+  .prev-btn { background-color: #2196F3; }
+  .finish-btn { background-color: #f44336; }
+  .correct {
+    background-color: #2ecc71 !important;
+    color: white;
+    font-weight: bold;
+  }
+  .incorrect {
+    background-color: #e74c3c !important;
+    color: white;
+    font-weight: bold;
+  }
+  #resultHeader {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 26px;
+  }
+  #optionsContainer {
+    max-height: 400px;
+    overflow-y: auto;
+  }
 </style>
 </head>
 <body>
 
-<header>SmartSaarthi - Punit's Academy</header>
+<header>SmartSaarthi - Punit's Academy MCQ Test</header>
 
-<div class="subjects">
-    <button onclick="startQuiz('Hindi')">Hindi</button>
-    <button onclick="startQuiz('GK')">GK</button>
-    <button onclick="startQuiz('GS')">GS</button>
-    <button onclick="startQuiz('Reasoning')">Reasoning</button>
-    <button onclick="startQuiz('English')">English</button>
-    <button onclick="startQuiz('DI Special')">DI Special</button>
-    <button onclick="startQuiz('Basic Math')">Basic Math</button>
+<div class="subjects" id="subjectsContainer">
+  <button onclick="startQuiz('Hindi')">Hindi</button>
+  <button onclick="startQuiz('GK')">GK</button>
+  <button onclick="startQuiz('GS')">GS</button>
+  <button onclick="startQuiz('Reasoning')">Reasoning</button>
+  <button onclick="startQuiz('English')">English</button>
+  <button onclick="startQuiz('DI Special')">DI Special</button>
+  <button onclick="startQuiz('Basic Math')">Basic Math</button>
 </div>
 
-<div class="quiz-container" id="quizContainer">
-    <div class="question" id="questionText"></div>
-    <div class="options" id="optionsContainer"></div>
-    <div class="buttons">
-        <button class="prev-btn" onclick="prevQuestion()">Previous</button>
-        <button class="next-btn" onclick="nextQuestion()">Next</button>
-        <button class="finish-btn" onclick="finishQuiz()">Finish</button>
-    </div>
+<div id="quizContainer">
+  <div id="questionText"></div>
+  <div id="optionsContainer"></div>
+  <div class="buttons">
+    <button class="prev-btn" onclick="prevQuestion()">Previous</button>
+    <button class="next-btn" onclick="nextQuestion()">Next</button>
+    <button class="finish-btn" onclick="finishQuiz()">Finish</button>
+  </div>
 </div>
 
 <script>
-let questions = {
-    "Hindi": [],
-    "GK": [],
-    "GS": [],
-    "Reasoning": [],
-    "English": [],
-    "DI Special": [],
-    "Basic Math": []
+const questions = {
+  "Hindi": [
+    {q: "निम्नलिखित में से कौन-सा छंद सबसे छोटा माना जाता है?", options:["त्रिपदी", "दोहा", "चौपाई", "सर्ग"], answer: 1},
+    {q: "कालिदास की रचना 'मेघदूत' में प्रमुख पात्र कौन है?", options:["कुमुद", "मेघदूत", "राजा रुद्रदमन", "सुदर्शन"], answer: 1},
+    {q: "भक्ति काल के कवि तुलसीदास ने किस विषय पर लिखा है?", options:["रामायण", "महाभारत", "भगवद्गीता", "पुराण"], answer: 0},
+    {q: "हिंदी भाषा किस भाषा परिवार से संबंधित है?", options:["द्रविड़", "इंडो-आर्यन", "तिब्बती-बर्मी", "उरालिक"], answer: 1},
+    {q: "निम्नलिखित में से कौन-सा शब्द व्याकरण की दृष्टि से संधि विहीन है?", options:["राम + इन्द्र", "देव + उदय", "शनि + देव", "मस्त + भव"], answer: 3}
+  ],
+  "GK": [
+    {q: "विन्ध्य पर्वत श्रृंखला भारत के किस भाग से होकर गुजरती है?", options:["उत्तर भारत", "दक्षिण भारत", "पूर्व भारत", "पश्चिम भारत"], answer: 0},
+    {q: "भारत का सबसे बड़ा जलप्रपात कौन सा है?", options:["डूड्सन फॉल्स", "नीयाग्रा फॉल्स", "जलमगिरी फॉल्स", "तुंगभद्रा फॉल्स"], answer: 2},
+    {q: "निम्नलिखित में से कौन सा ग्रह अपनी धुरी पर सबसे तेज गति करता है?", options:["पृथ्वी", "बुध", "बृहस्पति", "शुक्र"], answer: 2},
+    {q: "संयुक्त राष्ट्र संघ का मुख्यालय कहाँ स्थित है?", options:["न्यूयॉर्क", "जिनेवा", "वाशिंगटन डीसी", "पेरिस"], answer: 0},
+    {q: "निम्नलिखित में से कौन सा विश्व धरोहर स्थल भारत में स्थित नहीं है?", options:["अजंता गुफाएँ", "माचू पिच्चू", "कुतुब मीनार", "हंपी"], answer: 1}
+  ],
+  "GS": [
+    {q: "हिमालय पर्वत श्रृंखला किस युग में बनी?", options:["तृतीयकाल", "चतुर्थकाल", "द्वितीयकाल", "प्रथमकाल"], answer: 0},
+    {q: "पृथ्वी के वायुमंडल में सबसे अधिक मात्रा में कौन-सा गैस होता है?", options:["ऑक्सीजन", "नाइट्रोजन", "कार्बन डाइऑक्साइड", "हाइड्रोजन"], answer: 1},
+    {q: "जलवायु परिवर्तन को रोकने के लिए सबसे प्रभावी उपाय क्या है?", options:["वनों की कटाई", "हरित ऊर्जा का उपयोग", "जीवाश्म ईंधन का उपयोग बढ़ाना", "औद्योगिक प्रदूषण बढ़ाना"], answer: 1},
+    {q: "किस ग्रह को लाल ग्रह कहा जाता है?", options:["मंगल", "शुक्र", "बृहस्पति", "शनि"], answer: 0},
+    {q: "भारत का राष्ट्रीय पशु कौन सा है?", options:["शेर", "बाघ", "हाथी", "गैंडा"], answer: 1}
+  ],
+  "Reasoning": [
+    {q: "अगर A > B, B = C, और C < D, तो कौन सा कथन सही है?", options:["A > D", "D > A", "B > D", "C > A"], answer: 1},
+    {q: "सिरीज में अगला अंक क्या होगा: 3, 6, 12, 24, ?", options:["30", "36", "48", "60"], answer: 2},
+    {q: "निम्नलिखित में से कौन सी संख्या 3, 5, 7, 11, 13, ? श्रृंखला में अगली होगी?", options:["14", "15", "17", "19"], answer: 2},
+    {q: "यदि सभी M N हैं, और कुछ N P हैं, तो निम्न में से कौन सा सही है?", options:["कुछ M P हो सकते हैं", "सभी M P हैं", "कोई M P नहीं है", "उपरोक्त में से कोई नहीं"], answer: 0},
+    {q: "अगर सोमवार को 4 दिन पहले था, तो आज कौन सा दिन है?", options:["शुक्रवार", "मंगलवार", "शनिवार", "रविवार"], answer: 0}
+  ],
+  "English": [
+    {q: "Choose the correct passive voice sentence: 'She writes a letter.'", options:["A letter is written by her.", "A letter was written by her.", "A letter is being written by her.", "A letter wrote by her."], answer: 0},
+    {q: "Select the sentence with correct subject-verb agreement:", options:["Neither of the boys are coming.", "Each of the players is skilled.", "Both of the girl are happy.", "None of them is here."], answer: 1},
+    {q: "Identify the correct meaning of the idiom: 'Break the ice.'", options:["To break something cold.", "To start a conversation.", "To end a relationship.", "To cause trouble."], answer: 1},
+    {q: "Choose the correct form: 'If I ___ you, I would apologize.'", options:["am", "were", "was", "be"], answer: 1},
+    {q: "Pick the correct synonym for 'Obsolete':", options:["Modern", "Outdated", "Rare", "New"], answer: 1}
+  ],
+  "DI Special": [
+    {q: "What is the average of 10, 20, 30, 40?", options:["25", "20", "30", "35"], answer: 0},
+    {q: "If 5 pens cost ₹20, what is the cost of 8 pens?", options:["₹32", "₹30", "₹40", "₹25"], answer: 0},
+    {q: "Ratio of boys to girls is 3:2, total 25 students. How many boys?", options:["15", "10", "12", "13"], answer: 0},
+    {q: "What is 15% of 200?", options:["30", "25", "20", "35"], answer: 0},
+    {q: "If a train travels 60 km in 1 hour, how far in 3 hours?", options:["180 km", "120 km", "150 km", "200 km"], answer: 0}
+  ],
+  "Basic Math": [
+    {q: "What is 12 × 12?", options:["144", "124", "142", "154"], answer: 0},
+    {q: "Square root of 81 is:", options:["9", "8", "7", "6"], answer: 0},
+    {q: "What is 25% of 80?", options:["20", "15", "25", "30"], answer: 0},
+    {q: "If x = 5, what is x²?", options:["25", "10", "5", "15"], answer: 0},
+    {q: "Simplify: 10 + 5 × 2 =", options:["20", "30", "25", "15"], answer: 0}
+  ]
 };
-
-// Dummy questions generator
-for (let subject in questions) {
-    for (let i = 1; i <= 50; i++) {
-        questions[subject].push({
-            q: `${subject} Question ${i}?`,
-            options: ["Option A", "Option B", "Option C", "Option D"],
-            answer: 0 // correct answer index
-        });
-    }
-}
 
 let currentSubject = "";
 let currentQuestionIndex = 0;
 let userAnswers = [];
 
 function startQuiz(subject) {
-    currentSubject = subject;
-    currentQuestionIndex = 0;
-    userAnswers = Array(questions[subject].length).fill(null);
-    document.querySelector(".subjects").style.display = "none";
-    document.getElementById("quizContainer").style.display = "block";
-    showQuestion();
+  currentSubject = subject;
+  currentQuestionIndex = 0;
+  userAnswers = Array(questions[subject].length).fill(null);
+  document.getElementById("subjectsContainer").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
+  showQuestion();
 }
 
 function showQuestion() {
-    let qData = questions[currentSubject][currentQuestionIndex];
-    document.getElementById("questionText").innerText = qData.q;
-    let optionsHTML = "";
-    qData.options.forEach((opt, idx) => {
-        let checked = userAnswers[currentQuestionIndex] === idx ? "checked" : "";
-        optionsHTML += `<label>
-            <input type="radio" name="option" value="${idx}" ${checked} 
-            onchange="selectOption(${idx})"> ${opt}
-        </label>`;
-    });
-    document.getElementById("optionsContainer").innerHTML = optionsHTML;
+  const qData = questions[currentSubject][currentQuestionIndex];
+  document.getElementById("questionText").innerText = `Q${currentQuestionIndex + 1}. ${qData.q}`;
+  let optionsHTML = "";
+  qData.options.forEach((opt, idx) => {
+    const checked = userAnswers[currentQuestionIndex] === idx ? "checked" : "";
+    optionsHTML += `<label>
+      <input type="radio" name="option" value="${idx}" ${checked} onchange="selectOption(${idx})">
+      ${opt}
+    </label>`;
+  });
+  document.getElementById("optionsContainer").innerHTML = optionsHTML;
 }
 
 function selectOption(index) {
-    userAnswers[currentQuestionIndex] = index;
+  userAnswers[currentQuestionIndex] = index;
 }
 
 function nextQuestion() {
-    if (currentQuestionIndex < questions[currentSubject].length - 1) {
-        currentQuestionIndex++;
-        showQuestion();
-    }
+  if (currentQuestionIndex < questions[currentSubject].length - 1) {
+    currentQuestionIndex++;
+    showQuestion();
+  }
 }
 
 function prevQuestion() {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        showQuestion();
-    }
+  if (currentQuestionIndex > 0) {
+    currentQuestionIndex--;
+    showQuestion();
+  }
 }
 
 function finishQuiz() {
-    let qList = document.getElementById("optionsContainer");
-    let html = "";
-    questions[currentSubject].forEach((q, idx) => {
-        let correctIdx = q.answer;
-        let userIdx = userAnswers[idx];
-        let isCorrect = correctIdx === userIdx;
-        html += `<div class="question">${q.q}</div>`;
-        q.options.forEach((opt, oIdx) => {
-            let className = "";
-            if (oIdx === userIdx) {
-                className = isCorrect ? "correct" : "incorrect";
-            }
-            if (oIdx === correctIdx && !isCorrect) {
-                className = "correct";
-            }
-            html += `<div class="${className}">${opt}</div>`;
-        });
-        html += "<hr>";
+  const totalQuestions = questions[currentSubject].length;
+  let correctCount = 0;
+
+  let resultHTML = `<div id="resultHeader"><h2>Result</h2></div>`;
+
+  questions[currentSubject].forEach((q, idx) => {
+    const userIdx = userAnswers[idx];
+    const correctIdx = q.answer;
+    const isCorrect = userIdx === correctIdx;
+    if(isCorrect) correctCount++;
+
+    resultHTML += `<div class="question"><strong>Q${idx + 1}. ${q.q}</strong></div>`;
+    q.options.forEach((opt, oIdx) => {
+      let className = "";
+      if (oIdx === userIdx) {
+        className = isCorrect ? "correct" : "incorrect";
+      }
+      if (oIdx === correctIdx && !isCorrect) {
+        className = "correct";
+      }
+      resultHTML += `<div class="${className}">${opt}</div>`;
     });
-    document.getElementById("questionText").innerHTML = `<h2>Result</h2>`;
-    qList.innerHTML = html;
-    document.querySelector(".buttons").style.display = "none";
+    resultHTML += "<hr>";
+  });
+
+  resultHTML = `<div id="resultHeader"><h2>Your Score: ${correctCount} / ${totalQuestions}</h2></div>` + resultHTML;
+
+  document.getElementById("questionText").innerHTML = resultHTML;
+  document.getElementById("optionsContainer").innerHTML = "";
+  document.querySelector(".buttons").style.display = "none";
 }
+
 </script>
 
 </body>
