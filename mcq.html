@@ -13,7 +13,7 @@
     color: white;
   }
   header {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.7);
     padding: 20px;
     font-size: 28px;
     font-weight: bold;
@@ -42,8 +42,8 @@
   }
   #quizContainer {
     max-width: 700px;
-    margin: 30px auto;
-    background: rgba(0,0,0,0.75);
+    margin: 30px auto 60px auto;
+    background: rgba(0,0,0,0.85);
     border-radius: 10px;
     padding: 20px;
     display: none;
@@ -65,27 +65,37 @@
     cursor: pointer;
   }
   .buttons {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
   }
   .buttons button {
-    background-color: #2196F3;
-    border: none;
-    color: white;
-    padding: 12px 25px;
-    margin: 0 20px;   /* Buttons ke beech gap */
+    padding: 12px 30px;
+    margin: 0 25px;
     font-size: 16px;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: white;
   }
-  .buttons button:hover {
+  .next-btn {
+    background-color: #4CAF50;
+  }
+  .next-btn:hover {
+    background-color: #3e8e41;
+  }
+  .prev-btn {
+    background-color: #2196F3;
+  }
+  .prev-btn:hover {
     background-color: #1769aa;
   }
-  .next-btn { background-color: #4CAF50; }
-  .prev-btn { background-color: #2196F3; }
-  .finish-btn { background-color: #f44336; }
-
+  .finish-btn {
+    background-color: #f44336;
+  }
+  .finish-btn:hover {
+    background-color: #da190b;
+  }
   .correct {
     background-color: #2ecc71 !important;
     color: white;
@@ -96,14 +106,26 @@
     color: white;
     font-weight: bold;
   }
-  #resultHeader {
-    text-align: center;
-    margin-bottom: 15px;
-    font-size: 26px;
+  #resultContainer {
+    max-width: 700px;
+    margin: 30px auto 60px auto;
+    background: rgba(0,0,0,0.9);
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    color: white;
   }
-  #optionsContainer {
-    max-height: 400px;
-    overflow-y: auto;
+  #resultContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #resultContainer .question {
+    margin-bottom: 12px;
+  }
+  #resultContainer .options div {
+    padding: 8px;
+    border-radius: 5px;
+    margin: 4px 0;
   }
 </style>
 </head>
@@ -130,6 +152,8 @@
     <button class="finish-btn" onclick="finishQuiz()">Finish</button>
   </div>
 </div>
+
+<div id="resultContainer"></div>
 
 <script>
 const questions = {
@@ -196,7 +220,4 @@ const questions = {
     {q: "भारत में सबसे बड़ा बांध कौन सा है?", options:["तेलांगाना बांध", "सागर बांध", "तिनसुकिया बांध", "तलाम बांध"], answer: 1},
     {q: "सौरमंडल में सबसे बड़ा ग्रह कौन सा है?", options:["पृथ्वी", "शनि", "बृहस्पति", "मंगल"], answer: 2},
     {q: "मानव शरीर में सबसे लंबी हड्डी कौन सी है?", options:["हड्डी की हड्डी", "फीमर", "कूल्हे की हड्डी", "हड्डी का सिर"], answer: 1},
-    {q: "पृथ्वी की सतह का कितना प्रतिशत भाग जल से ढका है?", options:["50%", "70%", "60%", "80%"], answer: 1},
-    {q: "जैव विविधता का क्या अर्थ है?", options:["प्रजातियों की संख्या", "प्राकृतिक संसाधन", "पर्यावरण की गुणवत्ता", "वनों की संख्या"], answer: 0},
-    {q: "मानव शरीर का सबसे बड़ा अंग कौन सा है?", options:["फेफड़ा", "मस्तिष्क", "त्वचा", "हृदय"], answer: 2},
-    {q: "पृथ्वी की गुरुत्वाकर्षण शक्ति किस ग्रह की तुलना में सबसे अधिक है?", options:["मंगल", "शुक्र", "बुध",
+    {q: "पृथ्वी की सतह का कितना प्रतिशत भाग
