@@ -73,7 +73,7 @@
     border: none;
     color: white;
     padding: 12px 25px;
-    margin: 0 8px;
+    margin: 0 20px;   /* Buttons ke beech gap */
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
@@ -85,6 +85,7 @@
   .next-btn { background-color: #4CAF50; }
   .prev-btn { background-color: #2196F3; }
   .finish-btn { background-color: #f44336; }
+
   .correct {
     background-color: #2ecc71 !important;
     color: white;
@@ -137,131 +138,65 @@ const questions = {
     {q: "कालिदास की रचना 'मेघदूत' में प्रमुख पात्र कौन है?", options:["कुमुद", "मेघदूत", "राजा रुद्रदमन", "सुदर्शन"], answer: 1},
     {q: "भक्ति काल के कवि तुलसीदास ने किस विषय पर लिखा है?", options:["रामायण", "महाभारत", "भगवद्गीता", "पुराण"], answer: 0},
     {q: "हिंदी भाषा किस भाषा परिवार से संबंधित है?", options:["द्रविड़", "इंडो-आर्यन", "तिब्बती-बर्मी", "उरालिक"], answer: 1},
-    {q: "निम्नलिखित में से कौन-सा शब्द व्याकरण की दृष्टि से संधि विहीन है?", options:["राम + इन्द्र", "देव + उदय", "शनि + देव", "मस्त + भव"], answer: 3}
+    {q: "निम्नलिखित में से कौन-सा शब्द व्याकरण की दृष्टि से संधि विहीन है?", options:["राम + इन्द्र", "देव + उदय", "शनि + देव", "मस्त + भव"], answer: 3},
+    {q: "साहित्य में 'अतिशयोक्ति' किसको कहते हैं?", options:["बहुत बड़ी खुशी", "अधिक वर्णन", "अधिक तुलना", "अतिरिक्त वर्णन"], answer: 3},
+    {q: "रश्मि किस प्रकार की कविता होती है?", options:["निबंध", "गीत", "हाइकु", "नाटक"], answer: 2},
+    {q: "कवि निराला का पूरा नाम क्या है?", options:["सूर्यनाथ त्रिपाठी", "सूर्यकांत त्रिपाठी", "सूर्यकांत त्रिपाठी निराला", "सूरजकांत त्रिपाठी"], answer: 2},
+    {q: "भारतीय साहित्य में 'प्राचीन काल' कब तक माना जाता है?", options:["1500 ईसा पूर्व तक", "600 ईस्वी तक", "1200 ईस्वी तक", "1500 ईस्वी तक"], answer: 1},
+    {q: "किस छंद में 8 पद होते हैं?", options:["अष्टक", "दोहा", "चौपाई", "सर्ग"], answer: 0},
+    {q: "सूरदास जी का प्रमुख योगदान किस क्षेत्र में है?", options:["भक्ति गीत", "नाटक", "काव्य", "निबंध"], answer: 0},
+    {q: "निम्नलिखित में से कौन सा हिंदी व्याकरण का भाग नहीं है?", options:["संधि", "समास", "वर्णमाला", "रचना"], answer: 3},
+    {q: "रूढ़िवादी साहित्य का क्या अर्थ है?", options:["नवीन विचार", "परंपरागत विचार", "विवादास्पद विचार", "लोकप्रिय विचार"], answer: 1},
+    {q: "निम्नलिखित में से किसे हिंदी के महान कवि माना जाता है?", options:["मीराबाई", "सूरदास", "सूर्यकांत त्रिपाठी निराला", "कबीर"], answer: 2},
+    {q: "हिंदी साहित्य में 'छायावाद' किस काल को कहते हैं?", options:["1900-1930", "1850-1900", "1930-1950", "1950-1970"], answer: 0},
+    {q: "विलोम शब्द का अर्थ क्या होता है?", options:["समानार्थी", "विपरीत अर्थ", "प्रतीक", "संयुक्त शब्द"], answer: 1},
+    {q: "निम्नलिखित में से कौन-सा काव्य अलंकार है?", options:["उपमा", "अनुप्रास", "रूपक", "यमक"], answer: 0},
+    {q: "निम्नलिखित में से कौन-सा हिंदी व्याकरण का अंग है?", options:["क्रिया", "वर्ण", "संख्या", "लिंग"], answer: 0},
+    {q: "मीराबाई किस देवता की भक्ति करती थीं?", options:["शिव", "विष्णु", "कृष्ण", "राम"], answer: 2},
+    {q: "हिंदी का पहला साहित्यिक ग्रंथ कौन सा माना जाता है?", options:["रामायण", "गीता", "काव्यप्रकाश", "साहित्यसागर"], answer: 2},
+    {q: "हिंदी भाषा की उत्पत्ति कहाँ हुई मानी जाती है?", options:["उत्तर प्रदेश", "मध्य प्रदेश", "राजस्थान", "बिहार"], answer: 0},
+    {q: "कवि दिनकर का पूर्ण नाम क्या है?", options:["सूर्यकांत त्रिपाठी", "कुसुमाग्रज", "सूर्यकांत त्रिपाठी दिनकर", "रामधारी सिंह"], answer: 2},
+    {q: "हिंदी व्याकरण में 'संज्ञा' क्या होती है?", options:["क्रिया", "नाम", "विशेषण", "सर्वनाम"], answer: 1},
+    {q: "निम्नलिखित में से कौन-सा हिंदी का आधुनिक कवि है?", options:["जयशंकर प्रसाद", "हरिवंश राय बच्चन", "रामधारी सिंह दिनकर", "कुमार विश्वास"], answer: 3}
   ],
   "GK": [
     {q: "विन्ध्य पर्वत श्रृंखला भारत के किस भाग से होकर गुजरती है?", options:["उत्तर भारत", "दक्षिण भारत", "पूर्व भारत", "पश्चिम भारत"], answer: 0},
     {q: "भारत का सबसे बड़ा जलप्रपात कौन सा है?", options:["डूड्सन फॉल्स", "नीयाग्रा फॉल्स", "जलमगिरी फॉल्स", "तुंगभद्रा फॉल्स"], answer: 2},
     {q: "निम्नलिखित में से कौन सा ग्रह अपनी धुरी पर सबसे तेज गति करता है?", options:["पृथ्वी", "बुध", "बृहस्पति", "शुक्र"], answer: 2},
     {q: "संयुक्त राष्ट्र संघ का मुख्यालय कहाँ स्थित है?", options:["न्यूयॉर्क", "जिनेवा", "वाशिंगटन डीसी", "पेरिस"], answer: 0},
-    {q: "निम्नलिखित में से कौन सा विश्व धरोहर स्थल भारत में स्थित नहीं है?", options:["अजंता गुफाएँ", "माचू पिच्चू", "कुतुब मीनार", "हंपी"], answer: 1}
+    {q: "निम्नलिखित में से कौन सा विश्व धरोहर स्थल भारत में स्थित नहीं है?", options:["अजंता गुफाएँ", "माचू पिच्चू", "कुतुब मीनार", "हंपी"], answer: 1},
+    {q: "भारत का राष्ट्रीय खेल कौन सा है?", options:["क्रिकेट", "हॉकी", "फुटबॉल", "कबड्डी"], answer: 1},
+    {q: "भारत के पहले राष्ट्रपति कौन थे?", options:["डॉ. राजेंद्र प्रसाद", "डॉ. सर्वपल्ली राधाकृष्णन", "डॉ. बाबासाहेब आंबेडकर", "महात्मा गांधी"], answer: 0},
+    {q: "किस देश को 'सूरज की तपिश वाला देश' कहा जाता है?", options:["भारत", "चीन", "अफगानिस्तान", "मिस्र"], answer: 3},
+    {q: "विश्व की सबसे लंबी नदी कौन सी है?", options:["गंगा", "नील", "अमेज़न", "यांग्त्ज़ी"], answer: 1},
+    {q: "किस भारतीय राज्य को 'सूरज का राज्य' कहा जाता है?", options:["राजस्थान", "मध्य प्रदेश", "उत्तर प्रदेश", "गुजरात"], answer: 0},
+    {q: "भारत के राष्ट्रीय पशु कौन से हैं?", options:["शेर", "हाथी", "बाघ", "गैंडा"], answer: 2},
+    {q: "भारत की राजधानी क्या है?", options:["मुम्बई", "दिल्ली", "कोलकाता", "चेन्नई"], answer: 1},
+    {q: "गंगा नदी किस समुद्र में मिलती है?", options:["अरब सागर", "बंगाल की खाड़ी", "लाल सागर", "हिन्द महासागर"], answer: 1},
+    {q: "भारत का राष्ट्रीय पक्षी कौन है?", options:["मोर", "तोता", "कौआ", "गुलाबी इबिस"], answer: 0},
+    {q: "भारत में सबसे अधिक बोली जाने वाली भाषा कौन सी है?", options:["हिंदी", "तमिल", "तेलुगू", "बंगाली"], answer: 0},
+    {q: "विश्व का सबसे बड़ा महाद्वीप कौन सा है?", options:["एशिया", "अफ्रीका", "यूरोप", "अंटार्कटिका"], answer: 0},
+    {q: "भारत के प्रथम प्रधानमंत्री कौन थे?", options:["महात्मा गांधी", "डॉ. राजेंद्र प्रसाद", "जवाहरलाल नेहरू", "सुभाष चंद्र बोस"], answer: 2},
+    {q: "सूरज से सबसे नजदीक ग्रह कौन सा है?", options:["शुक्र", "बुध", "पृथ्वी", "मार्स"], answer: 1},
+    {q: "भारत का सबसे बड़ा राज्य क्षेत्रफल के हिसाब से कौन सा है?", options:["राजस्थान", "मध्य प्रदेश", "महाराष्ट्र", "उत्तर प्रदेश"], answer: 0},
+    {q: "भारतीय संविधान को कब अपनाया गया था?", options:["1947", "1950", "1952", "1949"], answer: 1},
+    {q: "भारत का राष्ट्रीय खेल कब आधिकारिक घोषित हुआ?", options:["1928", "1936", "1947", "1950"], answer: 0},
+    {q: "ताजमहल कहाँ स्थित है?", options:["दिल्ली", "आगरा", "जयपुर", "लखनऊ"], answer: 1},
+    {q: "विश्व का सबसे बड़ा महासागर कौन सा है?", options:["हिन्द महासागर", "प्रशांत महासागर", "अटलांटिक महासागर", "आर्कटिक महासागर"], answer: 1},
+    {q: "न्यूयॉर्क किस देश में है?", options:["कनाडा", "संयुक्त राज्य अमेरिका", "यूके", "ऑस्ट्रेलिया"], answer: 1},
+    {q: "निम्नलिखित में से भारत का सबसे बड़ा प्रायद्वीपीय राज्य कौन सा है?", options:["तमिलनाडु", "कर्नाटक", "महाराष्ट्र", "आंध्र प्रदेश"], answer: 2}
   ],
   "GS": [
     {q: "हिमालय पर्वत श्रृंखला किस युग में बनी?", options:["तृतीयकाल", "चतुर्थकाल", "द्वितीयकाल", "प्रथमकाल"], answer: 0},
     {q: "पृथ्वी के वायुमंडल में सबसे अधिक मात्रा में कौन-सा गैस होता है?", options:["ऑक्सीजन", "नाइट्रोजन", "कार्बन डाइऑक्साइड", "हाइड्रोजन"], answer: 1},
     {q: "जलवायु परिवर्तन को रोकने के लिए सबसे प्रभावी उपाय क्या है?", options:["वनों की कटाई", "हरित ऊर्जा का उपयोग", "जीवाश्म ईंधन का उपयोग बढ़ाना", "औद्योगिक प्रदूषण बढ़ाना"], answer: 1},
     {q: "किस ग्रह को लाल ग्रह कहा जाता है?", options:["मंगल", "शुक्र", "बृहस्पति", "शनि"], answer: 0},
-    {q: "भारत का राष्ट्रीय पशु कौन सा है?", options:["शेर", "बाघ", "हाथी", "गैंडा"], answer: 1}
-  ],
-  "Reasoning": [
-    {q: "अगर A > B, B = C, और C < D, तो कौन सा कथन सही है?", options:["A > D", "D > A", "B > D", "C > A"], answer: 1},
-    {q: "सिरीज में अगला अंक क्या होगा: 3, 6, 12, 24, ?", options:["30", "36", "48", "60"], answer: 2},
-    {q: "निम्नलिखित में से कौन सी संख्या 3, 5, 7, 11, 13, ? श्रृंखला में अगली होगी?", options:["14", "15", "17", "19"], answer: 2},
-    {q: "यदि सभी M N हैं, और कुछ N P हैं, तो निम्न में से कौन सा सही है?", options:["कुछ M P हो सकते हैं", "सभी M P हैं", "कोई M P नहीं है", "उपरोक्त में से कोई नहीं"], answer: 0},
-    {q: "अगर सोमवार को 4 दिन पहले था, तो आज कौन सा दिन है?", options:["शुक्रवार", "मंगलवार", "शनिवार", "रविवार"], answer: 0}
-  ],
-  "English": [
-    {q: "Choose the correct passive voice sentence: 'She writes a letter.'", options:["A letter is written by her.", "A letter was written by her.", "A letter is being written by her.", "A letter wrote by her."], answer: 0},
-    {q: "Select the sentence with correct subject-verb agreement:", options:["Neither of the boys are coming.", "Each of the players is skilled.", "Both of the girl are happy.", "None of them is here."], answer: 1},
-    {q: "Identify the correct meaning of the idiom: 'Break the ice.'", options:["To break something cold.", "To start a conversation.", "To end a relationship.", "To cause trouble."], answer: 1},
-    {q: "Choose the correct form: 'If I ___ you, I would apologize.'", options:["am", "were", "was", "be"], answer: 1},
-    {q: "Pick the correct synonym for 'Obsolete':", options:["Modern", "Outdated", "Rare", "New"], answer: 1}
-  ],
-  "DI Special": [
-    {q: "What is the average of 10, 20, 30, 40?", options:["25", "20", "30", "35"], answer: 0},
-    {q: "If 5 pens cost ₹20, what is the cost of 8 pens?", options:["₹32", "₹30", "₹40", "₹25"], answer: 0},
-    {q: "Ratio of boys to girls is 3:2, total 25 students. How many boys?", options:["15", "10", "12", "13"], answer: 0},
-    {q: "What is 15% of 200?", options:["30", "25", "20", "35"], answer: 0},
-    {q: "If a train travels 60 km in 1 hour, how far in 3 hours?", options:["180 km", "120 km", "150 km", "200 km"], answer: 0}
-  ],
-  "Basic Math": [
-    {q: "What is 12 × 12?", options:["144", "124", "142", "154"], answer: 0},
-    {q: "Square root of 81 is:", options:["9", "8", "7", "6"], answer: 0},
-    {q: "What is 25% of 80?", options:["20", "15", "25", "30"], answer: 0},
-    {q: "If x = 5, what is x²?", options:["25", "10", "5", "15"], answer: 0},
-    {q: "Simplify: 10 + 5 × 2 =", options:["20", "30", "25", "15"], answer: 0}
-  ]
-};
-
-let currentSubject = "";
-let currentQuestionIndex = 0;
-let userAnswers = [];
-
-function startQuiz(subject) {
-  currentSubject = subject;
-  currentQuestionIndex = 0;
-  userAnswers = Array(questions[subject].length).fill(null);
-  document.getElementById("subjectsContainer").style.display = "none";
-  document.getElementById("quizContainer").style.display = "block";
-  showQuestion();
-}
-
-function showQuestion() {
-  const qData = questions[currentSubject][currentQuestionIndex];
-  document.getElementById("questionText").innerText = `Q${currentQuestionIndex + 1}. ${qData.q}`;
-  let optionsHTML = "";
-  qData.options.forEach((opt, idx) => {
-    const checked = userAnswers[currentQuestionIndex] === idx ? "checked" : "";
-    optionsHTML += `<label>
-      <input type="radio" name="option" value="${idx}" ${checked} onchange="selectOption(${idx})">
-      ${opt}
-    </label>`;
-  });
-  document.getElementById("optionsContainer").innerHTML = optionsHTML;
-}
-
-function selectOption(index) {
-  userAnswers[currentQuestionIndex] = index;
-}
-
-function nextQuestion() {
-  if (currentQuestionIndex < questions[currentSubject].length - 1) {
-    currentQuestionIndex++;
-    showQuestion();
-  }
-}
-
-function prevQuestion() {
-  if (currentQuestionIndex > 0) {
-    currentQuestionIndex--;
-    showQuestion();
-  }
-}
-
-function finishQuiz() {
-  const totalQuestions = questions[currentSubject].length;
-  let correctCount = 0;
-
-  let resultHTML = `<div id="resultHeader"><h2>Result</h2></div>`;
-
-  questions[currentSubject].forEach((q, idx) => {
-    const userIdx = userAnswers[idx];
-    const correctIdx = q.answer;
-    const isCorrect = userIdx === correctIdx;
-    if(isCorrect) correctCount++;
-
-    resultHTML += `<div class="question"><strong>Q${idx + 1}. ${q.q}</strong></div>`;
-    q.options.forEach((opt, oIdx) => {
-      let className = "";
-      if (oIdx === userIdx) {
-        className = isCorrect ? "correct" : "incorrect";
-      }
-      if (oIdx === correctIdx && !isCorrect) {
-        className = "correct";
-      }
-      resultHTML += `<div class="${className}">${opt}</div>`;
-    });
-    resultHTML += "<hr>";
-  });
-
-  resultHTML = `<div id="resultHeader"><h2>Your Score: ${correctCount} / ${totalQuestions}</h2></div>` + resultHTML;
-
-  document.getElementById("questionText").innerHTML = resultHTML;
-  document.getElementById("optionsContainer").innerHTML = "";
-  document.querySelector(".buttons").style.display = "none";
-}
-
-</script>
-
-</body>
-    </html>
+    {q: "भारत का राष्ट्रीय पशु कौन सा है?", options:["शेर", "बाघ", "हाथी", "गैंडा"], answer: 1},
+    {q: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options:["हिन्द महासागर", "प्रशांत महासागर", "अटलांटिक महासागर", "आर्कटिक महासागर"], answer: 1},
+    {q: "भारत में सबसे बड़ा बांध कौन सा है?", options:["तेलांगाना बांध", "सागर बांध", "तिनसुकिया बांध", "तलाम बांध"], answer: 1},
+    {q: "सौरमंडल में सबसे बड़ा ग्रह कौन सा है?", options:["पृथ्वी", "शनि", "बृहस्पति", "मंगल"], answer: 2},
+    {q: "मानव शरीर में सबसे लंबी हड्डी कौन सी है?", options:["हड्डी की हड्डी", "फीमर", "कूल्हे की हड्डी", "हड्डी का सिर"], answer: 1},
+    {q: "पृथ्वी की सतह का कितना प्रतिशत भाग जल से ढका है?", options:["50%", "70%", "60%", "80%"], answer: 1},
+    {q: "जैव विविधता का क्या अर्थ है?", options:["प्रजातियों की संख्या", "प्राकृतिक संसाधन", "पर्यावरण की गुणवत्ता", "वनों की संख्या"], answer: 0},
+    {q: "मानव शरीर का सबसे बड़ा अंग कौन सा है?", options:["फेफड़ा", "मस्तिष्क", "त्वचा", "हृदय"], answer: 2},
+    {q: "पृथ्वी की गुरुत्वाकर्षण शक्ति किस ग्रह की तुलना में सबसे अधिक है?", options:["मंगल", "शुक्र", "बुध",
