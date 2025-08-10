@@ -3,97 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MCQ Practice</title>
+<title>SmartSaarthi - Punit's Academy</title>
 <style>
     body {
-        margin: 0;
         font-family: Arial, sans-serif;
-        background: url('mcq-bg.jpg') no-repeat center center fixed;
-        background-size: cover;
+        margin: 0;
+        background: url('background.jpg') no-repeat center center/cover;
         color: white;
-    }
-    .top-image {
-        width: 100%;
-        height: auto;
-    }
-    .content {
         text-align: center;
+    }
+    header {
+        background: rgba(0, 0, 0, 0.5);
         padding: 20px;
-        background: rgba(0, 0, 0, 0.6);
+        font-size: 28px;
+        font-weight: bold;
     }
-    h1 {
-        margin-top: 0;
-        font-size: 2.5em;
-        color: #FFD700;
-    }
-    .buttons {
+    .subjects {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 15px;
         margin-top: 20px;
     }
-    .buttons a {
-        padding: 15px 25px;
-        font-size: 1.2em;
-        text-decoration: none;
+    .subjects button {
+        background: linear-gradient(45deg, #ff4e50, #f9d423);
+        border: none;
         color: white;
-        border-radius: 10px;
+        padding: 15px 25px;
+        margin: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
         transition: 0.3s;
     }
-    .buttons a:nth-child(1) { background-color: #FF5733; }
-    .buttons a:nth-child(2) { background-color: #33C1FF; }
-    .buttons a:nth-child(3) { background-color: #28A745; }
-    .buttons a:nth-child(4) { background-color: #FFC300; color: black; }
-    .buttons a:nth-child(5) { background-color: #9B59B6; }
-    .buttons a:nth-child(6) { background-color: #E67E22; }
-    .buttons a:nth-child(7) { background-color: #16A085; }
-    .buttons a:nth-child(8) { background-color: #E74C3C; }
-
-    .buttons a:hover {
-        transform: scale(1.05);
-        opacity: 0.9;
+    .subjects button:hover {
+        transform: scale(1.1);
     }
-    .group-image {
-        margin-top: 30px;
-        max-width: 90%;
-        border-radius: 15px;
-    }
-    .description {
-        margin-top: 20px;
-        font-size: 1.1em;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 15px;
+    .quiz-container {
+        max-width: 600px;
+        margin: 30px auto;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
         border-radius: 10px;
+        display: none;
     }
+    .question {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .options {
+        text-align: left;
+    }
+    .options label {
+        display: block;
+        padding: 8px;
+        margin: 5px 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .buttons {
+        margin-top: 20px;
+    }
+    .buttons button {
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .next-btn { background: #4CAF50; color: white; }
+    .prev-btn { background: #2196F3; color: white; }
+    .finish-btn { background: #f44336; color: white; }
+    .correct { background-color: green !important; }
+    .incorrect { background-color: red !important; }
 </style>
 </head>
 <body>
 
-<img src="mcq-top.jpg" alt="MCQ Top Banner" class="top-image">
+<header>SmartSaarthi - Punit's Academy</header>
 
-<div class="content">
-    <h1>MCQ Practice Hub</h1>
+<div class="subjects">
+    <button onclick="startQuiz('Hindi')">Hindi</button>
+    <button onclick="startQuiz('GK')">GK</button>
+    <button onclick="startQuiz('GS')">GS</button>
+    <button onclick="startQuiz('Reasoning')">Reasoning</button>
+    <button onclick="startQuiz('English')">English</button>
+    <button onclick="startQuiz('DI Special')">DI Special</button>
+    <button onclick="startQuiz('Basic Math')">Basic Math</button>
+</div>
+
+<div class="quiz-container" id="quizContainer">
+    <div class="question" id="questionText"></div>
+    <div class="options" id="optionsContainer"></div>
     <div class="buttons">
-        <a href="#">Hindi</a>
-        <a href="#">GK</a>
-        <a href="#">GS</a>
-        <a href="#">Reasoning</a>
-        <a href="#">English</a>
-        <a href="#">DI Special</a>
-        <a href="#">Basic Math</a>
-        <a href="#">More Subjects</a>
-    </div>
-
-    <img src="group.jpg" alt="Group Learning" class="group-image">
-
-    <div class="description">
-        Welcome to SmartSaarthi's MCQ Practice Section!  
-        Yahan aap Hindi, GK, GS, Reasoning, English, DI Special, Basic Math aur kai aur subjects ke MCQs practice kar sakte ho.  
-        Har subject ke liye alag sets aur questions available hain jo aapke exam preparation ko strong banayenge.  
-        Practice shuru karo aur apne sapno ki tayari complete karo!
+        <button class="prev-btn" onclick="prevQuestion()">Previous</button>
+        <button class="next-btn" onclick="nextQuestion()">Next</button>
+        <button class="finish-btn" onclick="finishQuiz()">Finish</button>
     </div>
 </div>
 
+<script>
+let questions = {
+    "Hindi": [],
+    "GK": [],
+    "GS": [],
+    "Reasoning": [],
+    "English": [],
+    "DI Special": [],
+    "Basic Math": []
+};
+
+// Dummy questions generator
+for (let subject in questions) {
+    for (let i = 1; i <= 50; i++) {
+        questions[subject].push({
+            q: `${subject} Question ${i}?`,
+            options: ["Option A", "Option B", "Option C", "Option D"],
+            answer: 0 // correct answer index
+        });
+    }
+}
+
+let currentSubject = "";
+let currentQuestionIndex = 0;
+let userAnswers = [];
+
+function startQuiz(subject) {
+    currentSubject = subject;
+    currentQuestionIndex = 0;
+    userAnswers = Array(questions[subject].length).fill(null);
+    document.querySelector(".subjects").style.display = "none";
+    document.getElementById("quizContainer").style.display = "block";
+    showQuestion();
+}
+
+function showQuestion() {
+    let qData = questions[currentSubject][currentQuestionIndex];
+    document.getElementById("questionText").innerText = qData.q;
+    let optionsHTML = "";
+    qData.options.forEach((opt, idx) => {
+        let checked = userAnswers[currentQuestionIndex] === idx ? "checked" : "";
+        optionsHTML += `<label>
+            <input type="radio" name="option" value="${idx}" ${checked} 
+            onchange="selectOption(${idx})"> ${opt}
+        </label>`;
+    });
+    document.getElementById("optionsContainer").innerHTML = optionsHTML;
+}
+
+function selectOption(index) {
+    userAnswers[currentQuestionIndex] = index;
+}
+
+function nextQuestion() {
+    if (currentQuestionIndex < questions[currentSubject].length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion();
+    }
+}
+
+function finishQuiz() {
+    let qList = document.getElementById("optionsContainer");
+    let html = "";
+    questions[currentSubject].forEach((q, idx) => {
+        let correctIdx = q.answer;
+        let userIdx = userAnswers[idx];
+        let isCorrect = correctIdx === userIdx;
+        html += `<div class="question">${q.q}</div>`;
+        q.options.forEach((opt, oIdx) => {
+            let className = "";
+            if (oIdx === userIdx) {
+                className = isCorrect ? "correct" : "incorrect";
+            }
+            if (oIdx === correctIdx && !isCorrect) {
+                className = "correct";
+            }
+            html += `<div class="${className}">${opt}</div>`;
+        });
+        html += "<hr>";
+    });
+    document.getElementById("questionText").innerHTML = `<h2>Result</h2>`;
+    qList.innerHTML = html;
+    document.querySelector(".buttons").style.display = "none";
+}
+</script>
+
 </body>
-  </html>
+    </html>
