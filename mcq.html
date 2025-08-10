@@ -220,4 +220,65 @@ const questions = {
     {q: "भारत में सबसे बड़ा बांध कौन सा है?", options:["तेलांगाना बांध", "सागर बांध", "तिनसुकिया बांध", "तलाम बांध"], answer: 1},
     {q: "सौरमंडल में सबसे बड़ा ग्रह कौन सा है?", options:["पृथ्वी", "शनि", "बृहस्पति", "मंगल"], answer: 2},
     {q: "मानव शरीर में सबसे लंबी हड्डी कौन सी है?", options:["हड्डी की हड्डी", "फीमर", "कूल्हे की हड्डी", "हड्डी का सिर"], answer: 1},
-    {q: "पृथ्वी की सतह का कितना प्रतिशत भाग
+    function finishQuiz() {
+  let score = 0;
+  let resultHTML = `<h2>Result - ${currentSubject}</h2><p>Your Score: `;
+  questions[currentSubject].forEach((q, idx) => {
+    let correctIdx = q.answer;
+    let userIdx = userAnswers[idx];
+    if(correctIdx === userIdx) score++;
+  });
+  resultHTML += `${score} / ${questions[currentSubject].length}</p>`;
+
+  resultHTML += `<button onclick="reviewErrors()">View Errors</button> | <button onclick="restartQuiz()">Restart</button> | <button onclick="goToSubjects()">Select Subject</button>`;
+
+  resultHTML += `<div id="errorList" style="margin-top:20px;"></div>`;
+
+  document.getElementById("quizContainer").style.display = "none";
+  document.getElementById("resultContainer").style.display = "block";
+  document.getElementById("resultContainer").innerHTML = resultHTML;
+}
+
+function reviewErrors() {
+  let errorDiv = document.getElementById("errorList");
+  errorDiv.innerHTML = "";
+  let hasErrors = false;
+  questions[currentSubject].forEach((q, idx) => {
+    let userIdx = userAnswers[idx];
+    if(userIdx !== q.answer) {
+      hasErrors = true;
+      let optionsHTML = "";
+      q.options.forEach((opt, i) => {
+        let cls = "";
+        if(i === q.answer) cls = "correct";
+        else if(i === userIdx) cls = "incorrect";
+        optionsHTML += `<div class="${cls}">${String.fromCharCode(65+i)}. ${opt}</div>`;
+      });
+      errorDiv.innerHTML += `<div class="question"><b>Q${idx+1}:</b> ${q.q}<div class="options">${optionsHTML}</div></div><hr>`;
+    }
+  });
+  if(!hasErrors) {
+    errorDiv.innerHTML = "<p>Congratulations! No errors found.</p>";
+  }
+}
+
+function restartQuiz() {
+  userAnswers = Array(questions[currentSubject].length).fill(null);
+  currentQuestionIndex = 0;
+  document.getElementById("resultContainer").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
+  showQuestion();
+}
+
+function goToSubjects() {
+  currentSubject = "";
+  userAnswers = [];
+  currentQuestionIndex = 0;
+  document.getElementById("resultContainer").style.display = "none";
+  document.getElementById("quizContainer").style.display = "none";
+  document.getElementById("subjectsContainer").style.display = "flex";
+}
+</script>
+
+</body>
+</html>
